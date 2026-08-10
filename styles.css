@@ -60,7 +60,7 @@ body {
 } */
 
 /* Header */
-.app-header {
+/* .app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -115,7 +115,7 @@ body {
     gap: 12px;
 }
 
-/* Buttons */
+Buttons
 button {
     cursor: pointer;
     border: none;
@@ -183,7 +183,7 @@ button {
     font-size: 15px;
 }
 
-/* Main Layout Grid */
+Main Layout Grid
 .workspace {
     display: grid;
     grid-template-columns: 1fr 440px;
@@ -210,7 +210,7 @@ button {
     gap: 24px;
 }
 
-/* Section Title */
+Section Title
 .section-title {
     font-size: 15px;
     font-weight: 700;
@@ -230,7 +230,7 @@ button {
     margin-top: 12px;
 }
 
-/* Data Type Buttons Grid */
+Data Type Buttons Grid
 .type-selector {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -270,7 +270,7 @@ button {
     color: var(--primary);
 }
 
-/* Inputs & Form Controls */
+Inputs & Form Controls
 .content-form {
     display: none;
     flex-direction: column;
@@ -345,7 +345,7 @@ input:focus, textarea:focus, select:focus {
     padding-left: 44px;
 }
 
-/* Accordion */
+Accordion
 .accordion-container {
     display: flex;
     flex-direction: column;
@@ -401,7 +401,7 @@ input:focus, textarea:focus, select:focus {
     display: flex;
 }
 
-/* Segmented Control */
+Segmented Control
 .segmented-control {
     display: flex;
     background: var(--bg-input);
@@ -426,7 +426,7 @@ input:focus, textarea:focus, select:focus {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Color Pickers */
+Color Pickers
 .color-picker-wrapper {
     display: flex;
     gap: 8px;
@@ -434,7 +434,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 input[type="color"] {
-    /* -webkit-appearance: none; */
+    -webkit-appearance: none;
     border: none;
     width: 42px;
     height: 42px;
@@ -470,7 +470,7 @@ input[type="color"]::-webkit-color-swatch {
     padding-bottom: 8px;
 }
 
-/* Palettes */
+Palettes
 .palette-presets {
     display: flex;
     gap: 10px;
@@ -489,7 +489,7 @@ input[type="color"]::-webkit-color-swatch {
     border-color: #ffffff;
 }
 
-/* Grid Options (Shape & Eye Selector) */
+Grid Options (Shape & Eye Selector)
 .grid-options {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
@@ -536,7 +536,7 @@ input[type="color"]::-webkit-color-swatch {
 .eye-rnd { border-radius: 6px; }
 .eye-circ { border-radius: 50%; }
 
-/* Logo Presets */
+Logo Presets
 .logo-presets {
     display: flex;
     flex-wrap: wrap;
@@ -564,7 +564,7 @@ input[type="color"]::-webkit-color-swatch {
     background: rgba(59, 130, 246, 0.15);
 }
 
-/* Preview Panel */
+Preview Panel
 .preview-panel {
     display: flex;
     flex-direction: column;
@@ -646,7 +646,7 @@ input[type="color"]::-webkit-color-swatch {
     gap: 12px;
 }
 
-/* History Card */
+History Card
 .history-card {
     border-top: 1px solid var(--border-color);
     padding-top: 20px;
@@ -704,7 +704,7 @@ input[type="color"]::-webkit-color-swatch {
     padding: 16px 0;
 }
 
-/* Scanner Styles */
+Scanner Styles
 .scanner-panel {
     max-width: 600px;
     margin: 0 auto;
@@ -856,7 +856,7 @@ input[type="color"]::-webkit-color-swatch {
     justify-content: center;
 }
 
-/* Toast Notifications */
+Toast Notifications
 #toast-container {
     position: fixed;
     bottom: 24px;
@@ -886,7 +886,7 @@ input[type="color"]::-webkit-color-swatch {
     to { transform: translateX(0); opacity: 1; }
 }
 
-/* Batch Generator CSS Styles */
+Batch Generator CSS Styles
 .panel-desc {
     font-size: 13px;
     color: var(--text-muted);
@@ -1007,4 +1007,4 @@ input[type="color"]::-webkit-color-swatch {
     flex-direction: column;
     gap: 16px;
 }
-
+ */
