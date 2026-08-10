@@ -60,7 +60,7 @@ body {
 }
 
 /* Header */
-/* .app-header {
+ /* .app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -113,10 +113,10 @@ body {
 .header-actions {
     display: flex;
     gap: 12px;
-}
+} */
 
-Buttons
-button {
+/* Buttons */
+/* button {
     cursor: pointer;
     border: none;
     outline: none;
@@ -181,10 +181,10 @@ button {
 .btn-large {
     padding: 14px 24px;
     font-size: 15px;
-}
+} */
 
-Main Layout Grid
-.workspace {
+/* Main Layout Grid */
+/* .workspace {
     display: grid;
     grid-template-columns: 1fr 440px;
     gap: 24px;
@@ -208,9 +208,9 @@ Main Layout Grid
     display: flex;
     flex-direction: column;
     gap: 24px;
-}
+} */
 
-Section Title
+/* Section Title
 .section-title {
     font-size: 15px;
     font-weight: 700;
@@ -268,10 +268,10 @@ Data Type Buttons Grid
 
 .type-btn.active i {
     color: var(--primary);
-}
+} */
 
-Inputs & Form Controls
-.content-form {
+/* Inputs & Form Controls */
+/* .content-form {
     display: none;
     flex-direction: column;
     gap: 16px;
@@ -343,10 +343,10 @@ input:focus, textarea:focus, select:focus {
 
 .input-with-icon input {
     padding-left: 44px;
-}
+} */
 
-Accordion
-.accordion-container {
+/* Accordion */
+/* .accordion-container {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -399,10 +399,10 @@ Accordion
 
 .accordion-item.active .accordion-body {
     display: flex;
-}
+} */
 
-Segmented Control
-.segmented-control {
+/* Segmented Control */
+/* .segmented-control {
     display: flex;
     background: var(--bg-input);
     padding: 4px;
@@ -424,17 +424,16 @@ Segmented Control
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-main);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
+} */
 
-Color Pickers
-.color-picker-wrapper {
+/* Color Pickers */
+/* .color-picker-wrapper {
     display: flex;
     gap: 8px;
     align-items: center;
 }
 
 input[type="color"] {
-    -webkit-appearance: none;
     border: none;
     width: 42px;
     height: 42px;
@@ -468,10 +467,10 @@ input[type="color"]::-webkit-color-swatch {
     cursor: pointer;
     user-select: none;
     padding-bottom: 8px;
-}
+} */
 
-Palettes
-.palette-presets {
+/* Palettes */
+/* .palette-presets {
     display: flex;
     gap: 10px;
 }
@@ -487,10 +486,10 @@ Palettes
 .palette-btn:hover {
     transform: scale(1.15);
     border-color: #ffffff;
-}
+} */
 
-Grid Options (Shape & Eye Selector)
-.grid-options {
+/* Grid Options (Shape & Eye Selector) */
+/* .grid-options {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     gap: 10px;
@@ -534,10 +533,10 @@ Grid Options (Shape & Eye Selector)
 }
 .eye-sq { border-radius: 0; }
 .eye-rnd { border-radius: 6px; }
-.eye-circ { border-radius: 50%; }
+.eye-circ { border-radius: 50%; } */
 
-Logo Presets
-.logo-presets {
+/* Logo Presets */
+/* .logo-presets {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -562,10 +561,10 @@ Logo Presets
     border-color: var(--primary);
     color: var(--primary);
     background: rgba(59, 130, 246, 0.15);
-}
+} */
 
-Preview Panel
-.preview-panel {
+/* Preview Panel */
+/* .preview-panel {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -644,10 +643,10 @@ Preview Panel
     display: flex;
     justify-content: center;
     gap: 12px;
-}
+} */
 
-History Card
-.history-card {
+/* History Card */
+/* .history-card {
     border-top: 1px solid var(--border-color);
     padding-top: 20px;
     display: flex;
@@ -702,10 +701,10 @@ History Card
     font-size: 13px;
     color: var(--text-dim);
     padding: 16px 0;
-}
+} */
 
-Scanner Styles
-.scanner-panel {
+/* Scanner Styles */
+/* .scanner-panel {
     max-width: 600px;
     margin: 0 auto;
     width: 100%;
@@ -854,10 +853,10 @@ Scanner Styles
     display: flex;
     gap: 10px;
     justify-content: center;
-}
+} */
 
-Toast Notifications
-#toast-container {
+/* Toast Notifications */
+/* #toast-container {
     position: fixed;
     bottom: 24px;
     right: 24px;
@@ -884,10 +883,10 @@ Toast Notifications
 @keyframes slideIn {
     from { transform: translateX(100%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
-}
+} */
 
-Batch Generator CSS Styles
-.panel-desc {
+/* Batch Generator CSS Styles */
+/* .panel-desc {
     font-size: 13px;
     color: var(--text-muted);
     line-height: 1.5;
@@ -1006,4 +1005,4 @@ Batch Generator CSS Styles
     display: flex;
     flex-direction: column;
     gap: 16px;
-}
+} */
