@@ -184,7 +184,7 @@ button {
 }
 
 /* Main Layout Grid */
-/* .workspace {
+.workspace {
     display: grid;
     grid-template-columns: 1fr 440px;
     gap: 24px;
@@ -208,7 +208,7 @@ button {
     display: flex;
     flex-direction: column;
     gap: 24px;
-} */
+}
 
 /* Section Title
 .section-title {
