@@ -210,8 +210,8 @@ button {
     gap: 24px;
 }
 
-/* Section Title
-.section-title {
+/* Section Title */
+/* .section-title {
     font-size: 15px;
     font-weight: 700;
     text-transform: uppercase;
@@ -228,10 +228,10 @@ button {
 
 .margin-top {
     margin-top: 12px;
-}
+} */
 
-Data Type Buttons Grid
-.type-selector {
+/* Data Type Buttons Grid */
+/* .type-selector {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     gap: 10px;
@@ -251,9 +251,9 @@ Data Type Buttons Grid
 
 .type-btn i {
     font-size: 18px;
-}
+} */
 
-.type-btn:hover {
+/* .type-btn:hover {
     background: var(--bg-input-hover);
     color: var(--text-main);
     border-color: rgba(255, 255, 255, 0.2);
