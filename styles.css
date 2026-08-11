@@ -231,7 +231,7 @@ button {
 }
 
 /* Data Type Buttons Grid */
-/* .type-selector {
+.type-selector {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     gap: 10px;
@@ -251,7 +251,7 @@ button {
 
 .type-btn i {
     font-size: 18px;
-} */
+}
 
 /* .type-btn:hover {
     background: var(--bg-input-hover);
