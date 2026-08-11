@@ -60,7 +60,7 @@ body {
 }
 
 /* Header */
- /* .app-header {
+ .app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -113,7 +113,7 @@ body {
 .header-actions {
     display: flex;
     gap: 12px;
-} */
+}
 
 /* Buttons */
 /* button {
