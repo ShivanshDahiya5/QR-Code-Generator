@@ -211,7 +211,7 @@ button {
 }
 
 /* Section Title */
-/* .section-title {
+.section-title {
     font-size: 15px;
     font-weight: 700;
     text-transform: uppercase;
@@ -228,7 +228,7 @@ button {
 
 .margin-top {
     margin-top: 12px;
-} */
+}
 
 /* Data Type Buttons Grid */
 /* .type-selector {
