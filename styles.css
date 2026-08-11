@@ -271,7 +271,7 @@ button {
 }
 
 /* Inputs & Form Controls */
-/* .content-form {
+.content-form {
     display: none;
     flex-direction: column;
     gap: 16px;
@@ -279,7 +279,7 @@ button {
 
 .content-form.active {
     display: flex;
-} */
+}
 
 /* .form-row {
     display: grid;
