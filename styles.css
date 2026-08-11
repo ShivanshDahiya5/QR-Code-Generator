@@ -253,7 +253,7 @@ button {
     font-size: 18px;
 }
 
-/* .type-btn:hover {
+.type-btn:hover {
     background: var(--bg-input-hover);
     color: var(--text-main);
     border-color: rgba(255, 255, 255, 0.2);
@@ -268,7 +268,7 @@ button {
 
 .type-btn.active i {
     color: var(--primary);
-} */
+}
 
 /* Inputs & Form Controls */
 /* .content-form {
