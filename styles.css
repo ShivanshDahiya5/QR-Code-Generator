@@ -279,9 +279,9 @@ button {
 
 .content-form.active {
     display: flex;
-}
+} */
 
-.form-row {
+/* .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
