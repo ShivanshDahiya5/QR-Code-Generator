@@ -116,7 +116,7 @@ body {
 }
 
 /* Buttons */
-/* button {
+button {
     cursor: pointer;
     border: none;
     outline: none;
@@ -181,7 +181,7 @@ body {
 .btn-large {
     padding: 14px 24px;
     font-size: 15px;
-} */
+}
 
 /* Main Layout Grid */
 /* .workspace {
