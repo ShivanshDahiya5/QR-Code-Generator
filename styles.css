@@ -386,7 +386,7 @@ input:focus, textarea:focus, select:focus {
     color: var(--text-dim);
 }
 
-/* .accordion-item.active .accordion-header .fa-chevron-down {
+.accordion-item.active .accordion-header .fa-chevron-down {
     transform: rotate(180deg);
 }
 
@@ -399,7 +399,7 @@ input:focus, textarea:focus, select:focus {
 
 .accordion-item.active .accordion-body {
     display: flex;
-} */
+}
 
 /* Segmented Control */
 /* .segmented-control {
