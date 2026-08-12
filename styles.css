@@ -420,11 +420,11 @@ input:focus, textarea:focus, select:focus {
     border-radius: var(--radius-sm);
 }
 
-/* .segment-btn.active {
+.segment-btn.active {
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-main);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-} */
+}
 
 /* Color Pickers */
 /* .color-picker-wrapper {
