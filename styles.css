@@ -281,7 +281,7 @@ button {
     display: flex;
 }
 
-/* .form-row {
+.form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
@@ -297,7 +297,7 @@ button {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-} */
+}
 
 /* label {
     font-size: 13px;
