@@ -411,14 +411,14 @@ input:focus, textarea:focus, select:focus {
     gap: 4px;
 }
 
-/* .segment-btn {
+.segment-btn {
     flex: 1;
     padding: 8px;
     font-size: 12px;
     background: transparent;
     color: var(--text-muted);
     border-radius: var(--radius-sm);
-} */
+}
 
 /* .segment-btn.active {
     background: rgba(255, 255, 255, 0.1);
