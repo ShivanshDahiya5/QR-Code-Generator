@@ -402,7 +402,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Segmented Control */
-/* .segmented-control {
+.segmented-control {
     display: flex;
     background: var(--bg-input);
     padding: 4px;
@@ -411,16 +411,16 @@ input:focus, textarea:focus, select:focus {
     gap: 4px;
 }
 
-.segment-btn {
+/* .segment-btn {
     flex: 1;
     padding: 8px;
     font-size: 12px;
     background: transparent;
     color: var(--text-muted);
     border-radius: var(--radius-sm);
-}
+} */
 
-.segment-btn.active {
+/* .segment-btn.active {
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-main);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
