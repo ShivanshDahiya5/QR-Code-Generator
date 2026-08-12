@@ -470,7 +470,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 /* Palettes */
-/* .palette-presets {
+.palette-presets {
     display: flex;
     gap: 10px;
 }
@@ -486,7 +486,7 @@ input[type="color"]::-webkit-color-swatch {
 .palette-btn:hover {
     transform: scale(1.15);
     border-color: #ffffff;
-} */
+}
 
 /* Grid Options (Shape & Eye Selector) */
 /* .grid-options {
