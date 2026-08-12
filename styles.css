@@ -514,7 +514,7 @@ input[type="color"]::-webkit-color-swatch {
     color: var(--text-main);
 }
 
-/* .shape-preview {
+.shape-preview {
     width: 20px;
     height: 20px;
     background: var(--text-main);
@@ -533,7 +533,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 .eye-sq { border-radius: 0; }
 .eye-rnd { border-radius: 6px; }
-.eye-circ { border-radius: 50%; } */
+.eye-circ { border-radius: 50%; }
 
 /* Logo Presets */
 /* .logo-presets {
