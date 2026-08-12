@@ -427,7 +427,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Color Pickers */
-/* .color-picker-wrapper {
+.color-picker-wrapper {
     display: flex;
     gap: 8px;
     align-items: center;
@@ -442,7 +442,7 @@ input[type="color"] {
     background: transparent;
 }
 
-input[type="color"]::-webkit-color-swatch-wrapper {
+/* input[type="color"]::-webkit-color-swatch-wrapper {
     padding: 0;
 }
 
@@ -454,9 +454,9 @@ input[type="color"]::-webkit-color-swatch {
 .hex-input {
     font-family: 'JetBrains Mono', monospace;
     text-transform: uppercase;
-}
+} */
 
-.checkbox-group {
+/* .checkbox-group {
     justify-content: flex-end;
 }
 
