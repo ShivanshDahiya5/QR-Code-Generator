@@ -346,7 +346,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Accordion */
-/* .accordion-container {
+.accordion-container {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -371,7 +371,7 @@ input:focus, textarea:focus, select:focus {
     user-select: none;
 }
 
-.accordion-header span {
+/* .accordion-header span {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -384,9 +384,9 @@ input:focus, textarea:focus, select:focus {
 .accordion-header .fa-chevron-down {
     transition: transform 0.3s ease;
     color: var(--text-dim);
-}
+} */
 
-.accordion-item.active .accordion-header .fa-chevron-down {
+/* .accordion-item.active .accordion-header .fa-chevron-down {
     transform: rotate(180deg);
 }
 
