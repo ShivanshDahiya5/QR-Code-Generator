@@ -299,7 +299,7 @@ button {
     justify-content: space-between;
 }
 
-/* label {
+label {
     font-size: 13px;
     font-weight: 600;
     color: var(--text-muted);
@@ -322,7 +322,7 @@ select {
     width: 100%;
 }
 
-input:focus, textarea:focus, select:focus {
+/* input:focus, textarea:focus, select:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
