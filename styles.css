@@ -907,7 +907,7 @@ input[type="color"]::-webkit-color-swatch {
     min-height: 150px;
 }
 
-/* .batch-preview-list::-webkit-scrollbar {
+.batch-preview-list::-webkit-scrollbar {
     width: 6px;
 }
 .batch-preview-list::-webkit-scrollbar-track {
@@ -933,7 +933,7 @@ input[type="color"]::-webkit-color-swatch {
 .batch-item:hover {
     background: rgba(255, 255, 255, 0.06);
     border-color: rgba(255, 255, 255, 0.15);
-} */
+}
 
 /* .batch-item-info {
     display: flex;
