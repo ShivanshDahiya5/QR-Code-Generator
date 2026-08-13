@@ -746,7 +746,7 @@ input[type="color"]::-webkit-color-swatch {
     align-items: center;
 }
 
-/* .camera-viewport {
+.camera-viewport {
     position: relative;
     width: 100%;
     max-width: 400px;
@@ -772,7 +772,7 @@ input[type="color"]::-webkit-color-swatch {
     display: flex;
     align-items: center;
     justify-content: center;
-} */
+}
 
 /* .scan-target-box {
     width: 200px;
