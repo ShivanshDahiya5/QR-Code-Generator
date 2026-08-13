@@ -886,7 +886,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 /* Batch Generator CSS Styles */
-/* .panel-desc {
+.panel-desc {
     font-size: 13px;
     color: var(--text-muted);
     line-height: 1.5;
@@ -907,7 +907,7 @@ input[type="color"]::-webkit-color-swatch {
     min-height: 150px;
 }
 
-.batch-preview-list::-webkit-scrollbar {
+/* .batch-preview-list::-webkit-scrollbar {
     width: 6px;
 }
 .batch-preview-list::-webkit-scrollbar-track {
@@ -933,9 +933,9 @@ input[type="color"]::-webkit-color-swatch {
 .batch-item:hover {
     background: rgba(255, 255, 255, 0.06);
     border-color: rgba(255, 255, 255, 0.15);
-}
+} */
 
-.batch-item-info {
+/* .batch-item-info {
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -959,9 +959,9 @@ input[type="color"]::-webkit-color-swatch {
     overflow: hidden;
     text-overflow: ellipsis;
     font-family: 'JetBrains Mono', monospace;
-}
+} */
 
-.batch-item-filename {
+/* .batch-item-filename {
     font-size: 11px;
     color: var(--text-dim);
 }
@@ -982,9 +982,9 @@ input[type="color"]::-webkit-color-swatch {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-}
+} */
 
-.btn-remove-batch {
+/* .btn-remove-batch {
     color: #ef4444;
     background: transparent;
     padding: 8px;
