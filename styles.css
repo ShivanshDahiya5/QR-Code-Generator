@@ -803,7 +803,7 @@ input[type="color"]::-webkit-color-swatch {
     position: relative;
 }
 
-/* .dropzone:hover {
+.dropzone:hover {
     border-color: var(--primary);
     background: rgba(59, 130, 246, 0.05);
 }
@@ -829,7 +829,7 @@ input[type="color"]::-webkit-color-swatch {
     display: flex;
     flex-direction: column;
     gap: 12px;
-} */
+}
 
 /* .result-title {
     color: #10b981;
