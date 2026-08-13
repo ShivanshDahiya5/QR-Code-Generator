@@ -614,7 +614,7 @@ input[type="color"]::-webkit-color-swatch {
     position: relative;
 }
 
-/* #qr-canvas {
+#qr-canvas {
     width: 100% !important;
     height: 100% !important;
     object-fit: contain;
@@ -643,7 +643,7 @@ input[type="color"]::-webkit-color-swatch {
     display: flex;
     justify-content: center;
     gap: 12px;
-} */
+}
 
 /* History Card */
 /* .history-card {
