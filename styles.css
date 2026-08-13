@@ -668,7 +668,7 @@ input[type="color"]::-webkit-color-swatch {
     gap: 8px;
 }
 
-/* .history-grid {
+.history-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
@@ -701,7 +701,7 @@ input[type="color"]::-webkit-color-swatch {
     font-size: 13px;
     color: var(--text-dim);
     padding: 16px 0;
-} */
+}
 
 /* Scanner Styles */
 /* .scanner-panel {
