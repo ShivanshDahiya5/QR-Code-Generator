@@ -935,7 +935,7 @@ input[type="color"]::-webkit-color-swatch {
     border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* .batch-item-info {
+.batch-item-info {
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -959,7 +959,7 @@ input[type="color"]::-webkit-color-swatch {
     overflow: hidden;
     text-overflow: ellipsis;
     font-family: 'JetBrains Mono', monospace;
-} */
+}
 
 /* .batch-item-filename {
     font-size: 11px;
