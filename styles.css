@@ -984,7 +984,7 @@ input[type="color"]::-webkit-color-swatch {
     object-fit: contain;
 }
 
-/* .btn-remove-batch {
+.btn-remove-batch {
     color: #ef4444;
     background: transparent;
     padding: 8px;
@@ -1005,4 +1005,4 @@ input[type="color"]::-webkit-color-swatch {
     display: flex;
     flex-direction: column;
     gap: 16px;
-} */
+}
