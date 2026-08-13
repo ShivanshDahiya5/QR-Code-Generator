@@ -774,7 +774,7 @@ input[type="color"]::-webkit-color-swatch {
     justify-content: center;
 }
 
-/* .scan-target-box {
+.scan-target-box {
     width: 200px;
     height: 200px;
     border: 2px dashed var(--primary);
@@ -801,7 +801,7 @@ input[type="color"]::-webkit-color-swatch {
     cursor: pointer;
     transition: var(--transition);
     position: relative;
-} */
+}
 
 /* .dropzone:hover {
     border-color: var(--primary);
