@@ -831,7 +831,7 @@ input[type="color"]::-webkit-color-swatch {
     gap: 12px;
 }
 
-/* .result-title {
+.result-title {
     color: #10b981;
     font-weight: 700;
     display: flex;
@@ -853,7 +853,7 @@ input[type="color"]::-webkit-color-swatch {
     display: flex;
     gap: 10px;
     justify-content: center;
-} */
+}
 
 /* Toast Notifications */
 /* #toast-container {
