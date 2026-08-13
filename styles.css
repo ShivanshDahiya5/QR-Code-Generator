@@ -646,7 +646,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 /* History Card */
-/* .history-card {
+.history-card {
     border-top: 1px solid var(--border-color);
     padding-top: 20px;
     display: flex;
@@ -668,7 +668,7 @@ input[type="color"]::-webkit-color-swatch {
     gap: 8px;
 }
 
-.history-grid {
+/* .history-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
