@@ -564,7 +564,7 @@ input[type="color"]::-webkit-color-swatch {
 } */
 
 /* Preview Panel */
-/* .preview-panel {
+.preview-panel {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -590,7 +590,7 @@ input[type="color"]::-webkit-color-swatch {
     font-weight: 700;
 }
 
-.badge {
+/* .badge {
     background: rgba(255, 255, 255, 0.08);
     padding: 4px 10px;
     border-radius: var(--radius-full);
@@ -612,9 +612,9 @@ input[type="color"]::-webkit-color-swatch {
     width: 100%;
     aspect-ratio: 1;
     position: relative;
-}
+} */
 
-#qr-canvas {
+/* #qr-canvas {
     width: 100% !important;
     height: 100% !important;
     object-fit: contain;
