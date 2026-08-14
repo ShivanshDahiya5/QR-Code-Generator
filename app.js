@@ -121,3 +121,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         targetCtx.fillStyle = fgStyle;
         targetCtx.strokeStyle = fgStyle;
+
+        function isEyeModule(r, c) {
+            if (r < 7 && c < 7) return true; // Top-Left
+            if (r < 7 && c >= count - 7) return true; // Top-Right
+            if (r >= count - 7 && c < 7) return true; // Bottom-Left
+            return false;
+        }
+
+        // Draw Body Modules
+        for (let r = 0; r < count; r++) {
+            for (let c = 0; c < count; c++) {
+                if (qr.isDark(r, c)) {
+                    if (isEyeModule(r, c)) continue; // Handled separately
+
+                    const x = (c + marginModules) * cellSize;
+                    const y = (r + marginModules) * cellSize;
+
+                    // Draw custom dot shapes
+                    if (state.dotStyle === 'square') {
+                        targetCtx.fillRect(x, y, cellSize + 0.5, cellSize + 0.5);
+                    } else if (state.dotStyle === 'dots') {
+                        targetCtx.beginPath();
+                        targetCtx.arc(x + cellSize / 2, y + cellSize / 2, cellSize * 0.42, 0, Math.PI * 2);
+                        targetCtx.fill();
+                    } else if (state.dotStyle === 'rounded') {
+                        drawRoundedRect(targetCtx, x, y, cellSize, cellSize, cellSize * 0.35);
+                        targetCtx.fill();
+                    } else if (state.dotStyle === 'diamond') {
+                        targetCtx.beginPath();
+                        targetCtx.moveTo(x + cellSize / 2, y);
+                        targetCtx.lineTo(x + cellSize, y + cellSize / 2);
+                        targetCtx.lineTo(x + cellSize / 2, y + cellSize);
+                        targetCtx.lineTo(x, y + cellSize / 2);
+                        targetCtx.closePath();
+                        targetCtx.fill();
+                    } else if (state.dotStyle === 'classy') {
+                        drawClassyModule(targetCtx, x, y, cellSize);
+                    }
+                }
+            }
+        }
