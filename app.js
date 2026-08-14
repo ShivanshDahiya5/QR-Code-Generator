@@ -28,3 +28,30 @@ document.addEventListener('DOMContentLoaded', () => {
         whatsapp: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2325D366"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>`,
         globe: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%233b82f6"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8 8 0 0 1 18.93 8zM12 4a13.62 13.62 0 0 1 1.77 4h-3.54A13.62 13.62 0 0 1 12 4zm-4.6 1.44A15.65 15.65 0 0 0 6.02 8H3.07a8 8 0 0 1 4.33-3.56zM3.07 10h3.13a16.8 16.8 0 0 0-.1 2 16.8 16.8 0 0 0 .1 2H3.07a7.94 7.94 0 0 1 0-4zm1.53 6h2.95a15.65 15.65 0 0 0 1.38 3.56A8 8 0 0 1 4.6 16zm2.8-2a14.7 14.7 0 0 1-.15-2 14.7 14.7 0 0 1 .15-2h9.2a14.7 14.7 0 0 1 .15 2 14.7 14.7 0 0 1-.15 2zm4.6 5.56A13.62 13.62 0 0 1 10.23 16h3.54A13.62 13.62 0 0 1 12 19.56zm4.6-1.56a15.65 15.65 0 0 0 1.38-3.56h2.95a8 8 0 0 1-4.33 3.56zM17.8 14a16.8 16.8 0 0 0 .1-2 16.8 16.8 0 0 0-.1-2h3.13a7.94 7.94 0 0 1 0 4z"/></svg>`
     };
+
+    function getPayloadData() {
+        switch (state.contentType) {
+            case 'url':
+                return document.getElementById('input-url').value.trim() || 'https://antigravity.ai';
+            case 'text':
+                return document.getElementById('input-text').value.trim() || 'QR Studio Pro';
+            case 'wifi': {
+                const ssid = document.getElementById('wifi-ssid').value.trim() || 'WiFi-Network';
+                return `WIFI:S:${ssid};T:WPA;P:;;`;
+            }
+            case 'vcard': {
+                const name = document.getElementById('vc-name').value.trim() || 'John Doe';
+                return `BEGIN:VCARD\nVERSION:3.0\nN:${name};\nFN:${name}\nEND:VCARD`;
+            }
+            case 'email': {
+                const to = document.getElementById('email-to').value.trim() || 'hello@example.com';
+                return `mailto:${to}`;
+            }
+            case 'phone': {
+                const phone = document.getElementById('input-phone').value.trim() || '+1234567890';
+                return `tel:${phone}`;
+            }
+            default:
+                return 'https://antigravity.ai';
+        }
+    }
