@@ -72,3 +72,25 @@ document.addEventListener('DOMContentLoaded', () => {
         img.onerror = () => callback(null);
         img.src = logoSrc;
     }
+
+    function renderQRCode() {
+        const textData = getPayloadData();
+        getActiveLogoImage((logoImg) => {
+            drawQRCodeToCanvasContext(textData, canvas, ctx, 1000, logoImg);
+        });
+    }
+
+    // Reusable canvas draw helper for Single & Batch generation
+    function drawQRCodeToCanvasContext(textData, targetCanvas, targetCtx, resolution, logoImg) {
+        // Generate matrix data using qrcode-generator
+        const qr = qrcode(0, state.ecc);
+        qr.addData(textData);
+        qr.make();
+
+        const count = qr.getModuleCount();
+        const marginModules = parseInt(state.margin, 10);
+        const totalModules = count + marginModules * 2;
+        const cellSize = resolution / totalModules;
+
+        targetCanvas.width = resolution;
+        targetCanvas.height = resolution;
