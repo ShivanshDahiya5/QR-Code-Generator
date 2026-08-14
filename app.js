@@ -226,3 +226,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         ctx.restore();
     }
+
+    function drawRoundedRect(ctx, x, y, w, h, r) {
+        if (w < 2 * r) r = w / 2;
+        if (h < 2 * r) r = h / 2;
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+    }
+
+    function drawClassyModule(ctx, x, y, size) {
+        const r = size * 0.4;
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + size, y);
+        ctx.lineTo(x + size, y + size - r);
+        ctx.arcTo(x + size, y + size, x + size - r, y + size, r);
+        ctx.lineTo(x, y + size);
+        ctx.lineTo(x, y + r);
+        ctx.arcTo(x, y, x + r, y, r);
+        ctx.closePath();
+        ctx.fill();
+    }
