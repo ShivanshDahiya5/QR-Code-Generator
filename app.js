@@ -194,3 +194,35 @@ document.addEventListener('DOMContentLoaded', () => {
             targetCtx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
         }
     }
+
+    function drawCustomEye(ctx, x, y, outerSize, innerSize, cellSize, fgStyle) {
+        ctx.save();
+        ctx.fillStyle = fgStyle;
+        ctx.strokeStyle = fgStyle;
+        const lineWidth = cellSize;
+
+        // Outer Frame
+        if (state.eyeFrameStyle === 'square') {
+            ctx.strokeRect(x + lineWidth / 2, y + lineWidth / 2, outerSize - lineWidth, outerSize - lineWidth);
+            ctx.lineWidth = lineWidth;
+            // Center Dot
+            ctx.fillRect(x + 2 * cellSize, y + 2 * cellSize, innerSize, innerSize);
+        } else if (state.eyeFrameStyle === 'rounded') {
+            ctx.lineWidth = lineWidth;
+            drawRoundedRect(ctx, x + lineWidth / 2, y + lineWidth / 2, outerSize - lineWidth, outerSize - lineWidth, cellSize * 1.5);
+            ctx.stroke();
+            // Center Inner Dot Rounded
+            drawRoundedRect(ctx, x + 2 * cellSize, y + 2 * cellSize, innerSize, innerSize, cellSize * 0.8);
+            ctx.fill();
+        } else if (state.eyeFrameStyle === 'circle') {
+            ctx.lineWidth = lineWidth;
+            ctx.beginPath();
+            ctx.arc(x + outerSize / 2, y + outerSize / 2, (outerSize - lineWidth) / 2, 0, Math.PI * 2);
+            ctx.stroke();
+            // Center Inner Circle
+            ctx.beginPath();
+            ctx.arc(x + outerSize / 2, y + outerSize / 2, innerSize / 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        ctx.restore();
+    }
