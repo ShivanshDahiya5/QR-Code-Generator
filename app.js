@@ -379,3 +379,22 @@ document.addEventListener('DOMContentLoaded', () => {
             renderQRCode();
         });
     });
+
+     // 5. Shapes Options
+    document.querySelectorAll('#dot-style-options .grid-opt').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#dot-style-options .grid-opt').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            state.dotStyle = btn.dataset.style;
+            renderQRCode();
+        });
+    });
+
+    document.querySelectorAll('#eye-frame-options .grid-opt').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#eye-frame-options .grid-opt').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            state.eyeFrameStyle = btn.dataset.eyectrl;
+            renderQRCode();
+        });
+    });
