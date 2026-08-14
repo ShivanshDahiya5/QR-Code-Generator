@@ -309,3 +309,35 @@ document.addEventListener('DOMContentLoaded', () => {
             renderQRCode();
         }
     });
+
+    colorFg2.addEventListener('input', (e) => {
+        state.colorFg2 = e.target.value;
+        colorFg2Hex.value = e.target.value;
+        renderQRCode();
+    });
+
+    colorFg2Hex.addEventListener('input', (e) => {
+        let val = e.target.value;
+        if (!val.startsWith('#')) val = '#' + val;
+        if (val.match(/^#[0-9A-Fa-f]{6}$/)) {
+            state.colorFg2 = val;
+            colorFg2.value = val;
+            renderQRCode();
+        }
+    });
+
+    colorBg.addEventListener('input', (e) => {
+        state.colorBg = e.target.value;
+        colorBgHex.value = e.target.value;
+        renderQRCode();
+    });
+
+    colorBgHex.addEventListener('input', (e) => {
+        let val = e.target.value;
+        if (!val.startsWith('#')) val = '#' + val;
+        if (val.match(/^#[0-9A-Fa-f]{6}$/)) {
+            state.colorBg = val;
+            colorBg.value = val;
+            renderQRCode();
+        }
+    });
