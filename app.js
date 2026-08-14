@@ -252,3 +252,27 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.closePath();
         ctx.fill();
     }
+
+    // --- Event Listeners Setup ---
+
+    // 1. Content Type Buttons
+    document.querySelectorAll('.type-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const type = btn.dataset.type;
+            state.contentType = type;
+
+            document.querySelectorAll('.content-form').forEach(f => f.classList.remove('active'));
+            document.getElementById(`form-${type}`).classList.add('active');
+
+            renderQRCode();
+        });
+    });
+
+    // 2. Real-time Text & Form Inputs
+    const allInputs = document.querySelectorAll('.content-form input, .content-form textarea, .content-form select');
+    allInputs.forEach(input => {
+        input.addEventListener('input', renderQRCode);
+    });
