@@ -55,3 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 return 'https://antigravity.ai';
         }
     }
+
+    function getActiveLogoImage(callback) {
+        if (state.logoType === 'none') {
+            callback(null);
+            return;
+        }
+        const logoSrc = state.logoType === 'custom' ? state.customLogoSrc : presetLogos[state.logoType];
+        if (!logoSrc) {
+            callback(null);
+            return;
+        }
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => callback(img);
+        img.onerror = () => callback(null);
+        img.src = logoSrc;
+    }
