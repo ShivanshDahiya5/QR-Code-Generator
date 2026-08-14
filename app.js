@@ -341,3 +341,41 @@ document.addEventListener('DOMContentLoaded', () => {
             renderQRCode();
         }
     });
+
+    transparentBg.addEventListener('change', (e) => {
+        state.transparentBg = e.target.checked;
+        renderQRCode();
+    });
+
+    // Segmented Mode (Solid, Linear, Radial)
+    document.querySelectorAll('#fg-mode-control .segment-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#fg-mode-control .segment-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            state.fgMode = btn.dataset.fgmode;
+            document.getElementById('group-color-fg2').style.display = state.fgMode === 'solid' ? 'none' : 'flex';
+            renderQRCode();
+        });
+    });
+
+    // Preset Palettes
+    document.querySelectorAll('.palette-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            state.colorFg = btn.dataset.fg;
+            state.colorFg2 = btn.dataset.fg2;
+            state.fgMode = btn.dataset.mode;
+
+            colorFg.value = state.colorFg;
+            colorFgHex.value = state.colorFg;
+            colorFg2.value = state.colorFg2;
+            colorFg2Hex.value = state.colorFg2;
+
+            document.querySelectorAll('#fg-mode-control .segment-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.fgmode === state.fgMode);
+            });
+            document.getElementById('group-color-fg2').style.display = state.fgMode === 'solid' ? 'none' : 'flex';
+
+            renderQRCode();
+        });
+    });
