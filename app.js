@@ -276,3 +276,36 @@ document.addEventListener('DOMContentLoaded', () => {
     allInputs.forEach(input => {
         input.addEventListener('input', renderQRCode);
     });
+
+     // 3. Accordion Toggle
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            item.classList.toggle('active');
+        });
+    });
+
+    // 4. Color Controls
+    const colorFg = document.getElementById('color-fg');
+    const colorFgHex = document.getElementById('color-fg-hex');
+    const colorFg2 = document.getElementById('color-fg2');
+    const colorFg2Hex = document.getElementById('color-fg2-hex');
+    const colorBg = document.getElementById('color-bg');
+    const colorBgHex = document.getElementById('color-bg-hex');
+    const transparentBg = document.getElementById('transparent-bg');
+
+    colorFg.addEventListener('input', (e) => {
+        state.colorFg = e.target.value;
+        colorFgHex.value = e.target.value;
+        renderQRCode();
+    });
+
+    colorFgHex.addEventListener('input', (e) => {
+        let val = e.target.value;
+        if (!val.startsWith('#')) val = '#' + val;
+        if (val.match(/^#[0-9A-Fa-f]{6}$/)) {
+            state.colorFg = val;
+            colorFg.value = val;
+            renderQRCode();
+        }
+    });
