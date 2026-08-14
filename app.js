@@ -94,3 +94,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         targetCanvas.width = resolution;
         targetCanvas.height = resolution;
+
+         // Clear Canvas
+        targetCtx.clearRect(0, 0, resolution, resolution);
+
+        // Fill Background
+        if (!state.transparentBg) {
+            targetCtx.fillStyle = state.colorBg;
+            targetCtx.fillRect(0, 0, resolution, resolution);
+        }
+
+        // Prepare Foreground Fill Style (Solid or Gradient)
+        let fgStyle;
+        if (state.fgMode === 'solid') {
+            fgStyle = state.colorFg;
+        } else if (state.fgMode === 'linear') {
+            const grad = targetCtx.createLinearGradient(0, 0, resolution, resolution);
+            grad.addColorStop(0, state.colorFg);
+            grad.addColorStop(1, state.colorFg2);
+            fgStyle = grad;
+        } else if (state.fgMode === 'radial') {
+            const grad = targetCtx.createRadialGradient(resolution / 2, resolution / 2, 50, resolution / 2, resolution / 2, resolution * 0.7);
+            grad.addColorStop(0, state.colorFg);
+            grad.addColorStop(1, state.colorFg2);
+            fgStyle = grad;
+        }
+        targetCtx.fillStyle = fgStyle;
+        targetCtx.strokeStyle = fgStyle;
