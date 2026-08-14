@@ -162,3 +162,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
+
+        const eyeLocations = [
+            { r: 0, c: 0 },
+            { r: 0, c: count - 7 },
+            { r: count - 7, c: 0 }
+        ];
+
+        eyeLocations.forEach(loc => {
+            const x = (loc.c + marginModules) * cellSize;
+            const y = (loc.r + marginModules) * cellSize;
+            const outerSize = 7 * cellSize;
+            const innerSize = 3 * cellSize;
+
+            drawCustomEye(targetCtx, x, y, outerSize, innerSize, cellSize, fgStyle);
+        });
+
+        // Draw Center Logo Overlay if enabled
+        if (state.logoType !== 'none' && logoImg) {
+            const logoSize = resolution * state.logoScale;
+            const logoX = (resolution - logoSize) / 2;
+            const logoY = (resolution - logoSize) / 2;
+            const pad = state.logoPadding * 4;
+
+            // Draw solid background behind logo to mask the QR modules
+            targetCtx.fillStyle = state.transparentBg ? '#ffffff' : state.colorBg;
+            drawRoundedRect(targetCtx, logoX - pad, logoY - pad, logoSize + pad * 2, logoSize + pad * 2, 16);
+            targetCtx.fill();
+
+            // Draw Image
+            targetCtx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
+        }
+    }
