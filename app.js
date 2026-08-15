@@ -677,3 +677,25 @@ document.addEventListener('DOMContentLoaded', () => {
         navigator.clipboard.writeText(text);
         showToast('Scan result copied to clipboard!');
     });
+
+    // --- Batch Mode Processing Logic ---
+    let batchItems = [];
+    let loadedCsvData = null;
+
+    const batchFileInput = document.getElementById('batch-file-input');
+    const batchTextarea = document.getElementById('batch-textarea');
+    const batchDropzone = document.getElementById('batch-dropzone');
+
+    // CSV File Select
+    batchFileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                loadedCsvData = event.target.result;
+                batchTextarea.value = `File loaded: ${file.name} (${file.size} bytes)\nClick "Process Batch" to parse.`;
+                showToast('CSV File loaded successfully.');
+            };
+            reader.readAsText(file);
+        }
+    });
