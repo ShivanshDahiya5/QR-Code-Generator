@@ -444,3 +444,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('logo-pad-val').textContent = e.target.value;
         renderQRCode();
     });
+
+    // 7. Advanced ECC & Margin
+    document.getElementById('ecc-level').addEventListener('change', (e) => {
+        state.ecc = e.target.value;
+        renderQRCode();
+    });
+
+    document.getElementById('margin-size').addEventListener('input', (e) => {
+        state.margin = e.target.value;
+        document.getElementById('margin-val').textContent = e.target.value;
+        renderQRCode();
+    });
