@@ -501,3 +501,19 @@ document.addEventListener('DOMContentLoaded', () => {
         saveToHistory(dataUrl);
         showToast('PNG QR Code downloaded successfully!');
     });
+
+    document.getElementById('btn-download-svg').addEventListener('click', () => {
+        const svgString = generateSVG();
+        const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+        const dataUrl = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.download = `QR-Studio-${Date.now()}.svg`;
+        link.href = dataUrl;
+        link.click();
+
+        // Save a PNG thumbnail to history
+        const pngUrl = canvas.toDataURL('image/png');
+        saveToHistory(pngUrl);
+        showToast('Vector SVG QR Code downloaded successfully!');
+    });
