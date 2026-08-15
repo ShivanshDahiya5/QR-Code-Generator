@@ -535,3 +535,36 @@ document.addEventListener('DOMContentLoaded', () => {
         renderHistoryGrid();
         showToast('History cleared');
     });
+
+    // --- View Switcher (Generator vs Batch vs Scanner) ---
+    const genView = document.getElementById('generator-view');
+    const batchView = document.getElementById('batch-view');
+    const scanView = document.getElementById('scanner-view');
+    const btnGen = document.getElementById('btn-mode-gen');
+    const btnBatch = document.getElementById('btn-mode-batch');
+    const btnScan = document.getElementById('btn-mode-scan');
+
+    function switchView(activeBtn, activeView) {
+        [btnGen, btnBatch, btnScan].forEach(btn => {
+            if (btn) {
+                btn.classList.remove('active');
+                btn.classList.add('btn-secondary');
+                btn.classList.remove('btn-primary');
+            }
+        });
+        activeBtn.classList.add('active');
+        activeBtn.classList.remove('btn-secondary');
+        activeBtn.classList.add('btn-primary');
+
+        genView.style.display = 'none';
+        batchView.style.display = 'none';
+        scanView.style.display = 'none';
+
+        if (activeView === genView) genView.style.display = 'grid';
+        else if (activeView === batchView) batchView.style.display = 'grid';
+        else if (activeView === scanView) scanView.style.display = 'flex';
+
+        if (activeView !== scanView) {
+            stopWebcam();
+        }
+    }
