@@ -655,3 +655,25 @@ document.addEventListener('DOMContentLoaded', () => {
             img.src = URL.createObjectURL(file);
         }
     });
+
+    function displayScanResult(text) {
+        const card = document.getElementById('scan-result-card');
+        const textElem = document.getElementById('scan-result-text');
+        const openBtn = document.getElementById('btn-open-scan');
+
+        textElem.textContent = text;
+        card.style.display = 'flex';
+
+        if (text.startsWith('http://') || text.startsWith('https://')) {
+            openBtn.href = text;
+            openBtn.style.display = 'inline-flex';
+        } else {
+            openBtn.style.display = 'none';
+        }
+    }
+
+    document.getElementById('btn-copy-scan').addEventListener('click', () => {
+        const text = document.getElementById('scan-result-text').textContent;
+        navigator.clipboard.writeText(text);
+        showToast('Scan result copied to clipboard!');
+    });
