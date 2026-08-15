@@ -590,3 +590,21 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Camera access denied or unequipped.');
         }
     }
+
+    function stopWebcam() {
+        if (videoStream) {
+            videoStream.getTracks().forEach(track => track.stop());
+            videoStream = null;
+        }
+        scanningActive = false;
+    }
+
+    document.getElementById('btn-toggle-cam').addEventListener('click', () => {
+        if (scanningActive) {
+            stopWebcam();
+            document.getElementById('btn-toggle-cam').innerHTML = `<i class="fa-solid fa-power-off"></i> Start Camera`;
+        } else {
+            startWebcam();
+            document.getElementById('btn-toggle-cam').innerHTML = `<i class="fa-solid fa-stop"></i> Stop Camera`;
+        }
+    });
