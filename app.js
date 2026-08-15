@@ -398,3 +398,20 @@ document.addEventListener('DOMContentLoaded', () => {
             renderQRCode();
         });
     });
+
+     // 6. Logo Overlay Controls
+    document.querySelectorAll('#logo-presets .logo-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#logo-presets .logo-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            state.logoType = btn.dataset.logo;
+
+            // Show/Hide custom file upload container depending on selection
+            const uploadWrapper = document.getElementById('logo-upload-wrapper');
+            if (uploadWrapper) {
+                uploadWrapper.style.display = state.logoType === 'custom' ? 'block' : 'none';
+            }
+
+            renderQRCode();
+        });
+    });
