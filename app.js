@@ -415,3 +415,20 @@ document.addEventListener('DOMContentLoaded', () => {
             renderQRCode();
         });
     });
+
+    const logoUpload = document.getElementById('logo-upload');
+    logoUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                state.customLogoSrc = event.target.result;
+                state.logoType = 'custom';
+                document.querySelectorAll('#logo-presets .logo-btn').forEach(b => {
+                    b.classList.toggle('active', b.dataset.logo === 'custom');
+                });
+                renderQRCode();
+            };
+            reader.readAsDataURL(file);
+        }
+    });
