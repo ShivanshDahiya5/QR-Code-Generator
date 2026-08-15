@@ -632,3 +632,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         requestAnimationFrame(tickScan);
     }
+
+    const scanFileInput = document.getElementById('scan-file-input');
+    scanFileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const img = new Image();
+            img.onload = () => {
+                const scanCanvas = document.createElement('canvas');
+                scanCanvas.width = img.width;
+                scanCanvas.height = img.height;
+                const scanCtx = scanCanvas.getContext('2d');
+                scanCtx.drawImage(img, 0, 0);
+                const imageData = scanCtx.getImageData(0, 0, img.width, img.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height);
+                if (code && code.data) {
+                    displayScanResult(code.data);
+                } else {
+                    showToast('No QR code detected in image.');
+                }
+            };
+            img.src = URL.createObjectURL(file);
+        }
+    });
