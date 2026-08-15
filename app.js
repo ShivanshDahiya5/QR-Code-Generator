@@ -572,3 +572,21 @@ document.addEventListener('DOMContentLoaded', () => {
     btnGen.addEventListener('click', () => switchView(btnGen, genView));
     btnBatch.addEventListener('click', () => switchView(btnBatch, batchView));
     btnScan.addEventListener('click', () => switchView(btnScan, scanView));
+
+    // --- QR Scanner Functionality ---
+    const video = document.getElementById('scan-video');
+    let videoStream = null;
+    let scanningActive = false;
+
+    async function startWebcam() {
+        try {
+            videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+            video.srcObject = videoStream;
+            video.setAttribute("playsinline", true);
+            video.play();
+            scanningActive = true;
+            requestAnimationFrame(tickScan);
+        } catch (err) {
+            showToast('Camera access denied or unequipped.');
+        }
+    }
