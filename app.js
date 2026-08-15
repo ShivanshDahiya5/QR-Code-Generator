@@ -517,3 +517,21 @@ document.addEventListener('DOMContentLoaded', () => {
         saveToHistory(pngUrl);
         showToast('Vector SVG QR Code downloaded successfully!');
     });
+
+    document.getElementById('btn-copy-img').addEventListener('click', async () => {
+        try {
+            canvas.toBlob(async (blob) => {
+                await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                showToast('Copied QR Image to clipboard!');
+            });
+        } catch (err) {
+            showToast('Unable to copy directly. Download instead.');
+        }
+    });
+
+    document.getElementById('btn-clear-history').addEventListener('click', () => {
+        state.history = [];
+        localStorage.removeItem('qr_studio_history');
+        renderHistoryGrid();
+        showToast('History cleared');
+    });
