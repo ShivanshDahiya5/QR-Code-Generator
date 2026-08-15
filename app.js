@@ -456,3 +456,26 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('margin-val').textContent = e.target.value;
         renderQRCode();
     });
+
+    // --- Downloads & Export Functions ---
+
+    function saveToHistory(dataUrl) {
+        state.history.unshift(dataUrl);
+        if (state.history.length > 8) state.history.pop();
+        localStorage.setItem('qr_studio_history', JSON.stringify(state.history));
+        renderHistoryGrid();
+    }
+
+    function renderHistoryGrid() {
+        const grid = document.getElementById('history-grid');
+        if (state.history.length === 0) {
+            grid.innerHTML = `<div class="empty-history">No saved QR codes yet. Generated items appear here.</div>`;
+            return;
+        }
+
+        grid.innerHTML = state.history.map(imgSrc => `
+            <div class="history-item">
+                <img src="${imgSrc}" alt="Saved QR Code">
+            </div>
+        `).join('');
+    }
