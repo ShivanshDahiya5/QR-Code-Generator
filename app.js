@@ -479,3 +479,25 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `).join('');
     }
+
+    document.getElementById('btn-download-png').addEventListener('click', () => {
+        const exportRes = parseInt(document.getElementById('export-res').value, 10);
+
+        // Render to temporary canvas at target resolution
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = exportRes;
+        tempCanvas.height = exportRes;
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCtx.drawImage(canvas, 0, 0, exportRes, exportRes);
+
+        const dataUrl = tempCanvas.toDataURL('image/png');
+
+        // Trigger Download
+        const link = document.createElement('a');
+        link.download = `QR-Studio-${Date.now()}.png`;
+        link.href = dataUrl;
+        link.click();
+
+        saveToHistory(dataUrl);
+        showToast('PNG QR Code downloaded successfully!');
+    });
