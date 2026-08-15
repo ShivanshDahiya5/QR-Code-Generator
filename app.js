@@ -432,3 +432,15 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.readAsDataURL(file);
         }
     });
+
+    document.getElementById('logo-size').addEventListener('input', (e) => {
+        state.logoScale = parseInt(e.target.value, 10) / 100;
+        document.getElementById('logo-size-val').textContent = e.target.value;
+        renderQRCode();
+    });
+
+    document.getElementById('logo-padding').addEventListener('input', (e) => {
+        state.logoPadding = parseInt(e.target.value, 10);
+        document.getElementById('logo-pad-val').textContent = e.target.value;
+        renderQRCode();
+    });
