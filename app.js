@@ -608,3 +608,27 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('btn-toggle-cam').innerHTML = `<i class="fa-solid fa-stop"></i> Stop Camera`;
         }
     });
+
+    function tickScan() {
+        if (!scanningActive) return;
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+            const scanCanvas = document.createElement('canvas');
+            scanCanvas.width = video.videoWidth;
+            scanCanvas.height = video.videoHeight;
+            const scanCtx = scanCanvas.getContext('2d');
+            scanCtx.drawImage(video, 0, 0, scanCanvas.width, scanCanvas.height);
+            const imageData = scanCtx.getImageData(0, 0, scanCanvas.width, scanCanvas.height);
+
+            const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                inversionAttempts: "dontInvert",
+            });
+
+            if (code && code.data) {
+                displayScanResult(code.data);
+                stopWebcam();
+                document.getElementById('btn-toggle-cam').innerHTML = `<i class="fa-solid fa-power-off"></i> Start Camera`;
+                return;
+            }
+        }
+        requestAnimationFrame(tickScan);
+    }
