@@ -568,3 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
             stopWebcam();
         }
     }
+
+    btnGen.addEventListener('click', () => switchView(btnGen, genView));
+    btnBatch.addEventListener('click', () => switchView(btnBatch, batchView));
+    btnScan.addEventListener('click', () => switchView(btnScan, scanView));
