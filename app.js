@@ -699,3 +699,34 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.readAsText(file);
         }
     });
+
+    // Drag & Drop
+    batchDropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        batchDropzone.style.borderColor = 'var(--primary)';
+        batchDropzone.style.background = 'rgba(59, 130, 246, 0.05)';
+    });
+
+    batchDropzone.addEventListener('dragleave', () => {
+        batchDropzone.style.borderColor = 'var(--border-color)';
+        batchDropzone.style.background = 'transparent';
+    });
+
+    batchDropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        batchDropzone.style.borderColor = 'var(--border-color)';
+        batchDropzone.style.background = 'transparent';
+
+        const file = e.dataTransfer.files[0];
+        if (file && (file.type === "text/csv" || file.type === "text/plain" || file.name.endsWith('.csv') || file.name.endsWith('.txt'))) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                loadedCsvData = event.target.result;
+                batchTextarea.value = `File loaded: ${file.name} (${file.size} bytes)\nClick "Process Batch" to parse.`;
+                showToast('CSV File dropped successfully.');
+            };
+            reader.readAsText(file);
+        } else {
+            showToast('Invalid file format. Please upload CSV or TXT.');
+        }
+    });
