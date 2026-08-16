@@ -965,3 +965,36 @@ document.addEventListener('DOMContentLoaded', () => {
             </defs>`;
             fillValue = 'url(#fgGradRadial)';
         }
+
+        let bgRect = '';
+        if (!state.transparentBg) {
+            bgRect = `<rect width="${resolution}" height="${resolution}" fill="${state.colorBg}" />`;
+        }
+
+        function isEyeModule(r, c) {
+            if (r < 7 && c < 7) return true;
+            if (r < 7 && c >= count - 7) return true;
+            if (r >= count - 7 && c < 7) return true;
+            return false;
+        }
+
+        let pathD = '';
+        for (let r = 0; r < count; r++) {
+            for (let c = 0; c < count; c++) {
+                if (qr.isDark(r, c)) {
+                    if (isEyeModule(r, c)) continue;
+
+                    const x = (c + marginModules) * cellSize;
+                    const y = (r + marginModules) * cellSize;
+
+                    if (state.dotStyle === 'square') {
+                        pathD += ` M ${x} ${y} h ${cellSize + 0.5} v ${cellSize + 0.5} h ${-(cellSize + 0.5)} z`;
+                    } else if (state.dotStyle === 'dots') {
+                        const cx = x + cellSize / 2;
+                        const cy = y + cellSize / 2;
+                        const radius = cellSize * 0.42;
+                        pathD += ` M ${cx} ${cy} m ${-radius},0 a ${radius},${radius} 0 1,0 ${radius * 2},0 a ${radius},${radius} 0 1,0 ${-radius * 2},0`;
+                    } else if (state.dotStyle === 'rounded') {
+                        const radius = cellSize * 0.35;
+                        const d = cellSize;
+                        pathD += ` M ${x + radius} ${y} h ${d - 2 * radius} a ${radius},${radius} 0 0,1 ${radius},${radius} v ${d - 2 * radius} a ${radius},${radius} 0 0,1 ${-radius},${radius} h ${-(d - 2 * radius)} a ${radius},${radius} 0 0,1 ${-radius},${-radius} v ${-(d - 2 * radius)} a ${radius},${radius} 0 0,1 ${radius},${-radius} z`;
