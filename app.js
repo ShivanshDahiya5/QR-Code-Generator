@@ -1076,3 +1076,24 @@ document.addEventListener('DOMContentLoaded', () => {
         params.set('pad', state.logoPadding);
         params.set('ecc', state.ecc);
         params.set('margin', state.margin);
+
+        if (state.contentType === 'url') params.set('val', document.getElementById('input-url').value);
+        else if (state.contentType === 'text') params.set('val', document.getElementById('input-text').value);
+        else if (state.contentType === 'wifi') {
+            params.set('ssid', document.getElementById('wifi-ssid').value);
+            params.set('pass', document.getElementById('wifi-pass').value);
+            params.set('enc', document.getElementById('wifi-enc').value);
+        } else if (state.contentType === 'vcard') {
+            params.set('fn', document.getElementById('vc-fn').value);
+            params.set('ln', document.getElementById('vc-ln').value);
+            params.set('org', document.getElementById('vc-org').value);
+            params.set('title', document.getElementById('vc-title').value);
+            params.set('tel', document.getElementById('vc-tel').value);
+            params.set('email', document.getElementById('vc-email').value);
+        } else if (state.contentType === 'email') {
+            params.set('to', document.getElementById('email-to').value);
+            params.set('sub', document.getElementById('email-subject').value);
+            params.set('body', document.getElementById('email-body').value);
+        } else if (state.contentType === 'phone') {
+            params.set('val', document.getElementById('input-phone').value);
+        }
