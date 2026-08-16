@@ -819,3 +819,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 previewList.appendChild(itemDiv);
             });
+
+            // Add delete button event listeners
+            document.querySelectorAll('.btn-remove-batch').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const idx = parseInt(btn.closest('button').dataset.index, 10);
+                    batchItems.splice(idx, 1);
+                    renderBatchPreview();
+                });
+            });
+        });
+    }
+
+    function drawSingleQRToCanvas(value, targetCanvas, logoImg) {
+        const targetCtx = targetCanvas.getContext('2d');
+        drawQRCodeToCanvasContext(value, targetCanvas, targetCtx, 300, logoImg);
+    }
