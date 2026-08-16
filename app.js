@@ -836,3 +836,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetCtx = targetCanvas.getContext('2d');
         drawQRCodeToCanvasContext(value, targetCanvas, targetCtx, 300, logoImg);
     }
+
+    function escapeHtml(text) {
+        return text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    // ZIP Batch Downloader
+    document.getElementById('btn-batch-download-zip').addEventListener('click', async () => {
+        if (batchItems.length === 0) return;
+
+        const format = document.getElementById('batch-export-format').value;
+        const resolution = parseInt(document.getElementById('batch-export-size').value, 10);
+        const zip = new JSZip();
+
+        showToast('Compiling ZIP package...');
+
+        if (format === 'svg') {
+            batchItems.forEach(item => {
+                const svgString = generateSVGWithValue(item.value);
+                zip.file(`${item.filename}.svg`, svgString);
+            });
