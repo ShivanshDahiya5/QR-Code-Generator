@@ -730,3 +730,23 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Invalid file format. Please upload CSV or TXT.');
         }
     });
+
+    // Process Batch
+    document.getElementById('btn-batch-process').addEventListener('click', () => {
+        const content = loadedCsvData || batchTextarea.value.trim();
+        if (!content) {
+            showToast('Please upload a file or paste a list first.');
+            return;
+        }
+
+        const delimiter = document.getElementById('batch-delimiter').value;
+        const nameCol = document.getElementById('batch-name-col').value;
+        const lines = content.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+
+        batchItems = [];
+
+        lines.forEach((line, idx) => {
+            if (line.startsWith('File loaded: ')) return;
+
+            let qrValue = line;
+            let filename = `qr-${idx + 1}`;
