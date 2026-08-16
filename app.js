@@ -1034,3 +1034,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 eyesSvg += `<rect x="${x + lw / 2}" y="${y + lw / 2}" width="${outerSize - lw}" height="${outerSize - lw}" rx="${rx}" ry="${rx}" fill="none" stroke="${fillValue}" stroke-width="${lw}" />`;
                 const irx = cellSize * 0.8;
                 eyesSvg += `<rect x="${x + 2 * cellSize}" y="${y + 2 * cellSize}" width="${innerSize}" height="${innerSize}" rx="${irx}" ry="${irx}" fill="${fillValue}" />`;
+                } else if (state.eyeFrameStyle === 'circle') {
+                const rOuter = (outerSize - lw) / 2;
+                eyesSvg += `<circle cx="${x + outerSize / 2}" cy="${y + outerSize / 2}" r="${rOuter}" fill="none" stroke="${fillValue}" stroke-width="${lw}" />`;
+                eyesSvg += `<circle cx="${x + outerSize / 2}" cy="${y + outerSize / 2}" r="${innerSize / 2}" fill="${fillValue}" />`;
+            }
+        });
+
+        let logoSvg = '';
+        if (state.logoType !== 'none') {
+            const logoSrc = state.logoType === 'custom' ? state.customLogoSrc : presetLogos[state.logoType];
+            if (logoSrc) {
+                const logoSize = resolution * state.logoScale;
+                const logoX = (resolution - logoSize) / 2;
+                const logoY = (resolution - logoSize) / 2;
+                const pad = state.logoPadding * 4;
+
+                if (!state.transparentBg) {
+                    logoSvg += `<rect x="${logoX - pad}" y="${logoY - pad}" width="${logoSize + pad * 2}" height="${logoSize + pad * 2}" rx="16" ry="16" fill="${state.colorBg}" />`;
+                }
+                logoSvg += `<image href="${logoSrc}" x="${logoX}" y="${logoY}" width="${logoSize}" height="${logoSize}" />`;
+            }
+        }
