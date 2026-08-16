@@ -911,3 +911,24 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('scan-webcam-content').style.display = 'none';
         stopWebcam();
     });
+
+    // --- Toast Notification Helper ---
+    function showToast(message) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `<i class="fa-solid fa-circle-info"></i> <span>${message}</span>`;
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px)';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    // --- SVG Vector Generator Logic ---
+    function generateSVG() {
+        const textData = getPayloadData();
+        return generateSVGWithValue(textData);
+    }
