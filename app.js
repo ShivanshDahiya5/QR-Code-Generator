@@ -765,3 +765,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             }
+
+            if (qrValue) {
+                batchItems.push({
+                    value: qrValue,
+                    filename: filename
+                });
+            }
+        });
+
+        loadedCsvData = null; // Reset for next import
+        renderBatchPreview();
+        showToast(`Processed ${batchItems.length} items successfully.`);
+    });
