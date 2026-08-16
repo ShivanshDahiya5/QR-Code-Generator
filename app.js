@@ -888,3 +888,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    function triggerDownload(blob, filename) {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+    }
+
+    // Scanner Tab Toggle
+    document.getElementById('tab-webcam').addEventListener('click', () => {
+        document.getElementById('tab-webcam').classList.add('active');
+        document.getElementById('tab-upload').classList.remove('active');
+        document.getElementById('scan-webcam-content').style.display = 'flex';
+        document.getElementById('scan-upload-content').style.display = 'none';
+    });
+
+    document.getElementById('tab-upload').addEventListener('click', () => {
+        document.getElementById('tab-upload').classList.add('active');
+        document.getElementById('tab-webcam').classList.remove('active');
+        document.getElementById('scan-upload-content').style.display = 'flex';
+        document.getElementById('scan-webcam-content').style.display = 'none';
+        stopWebcam();
+    });
