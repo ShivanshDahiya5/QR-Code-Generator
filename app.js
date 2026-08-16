@@ -861,3 +861,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 const svgString = generateSVGWithValue(item.value);
                 zip.file(`${item.filename}.svg`, svgString);
             });
+
+            const content = await zip.generateAsync({ type: 'blob' });
+            triggerDownload(content, `QR-Studio-Batch-${Date.now()}.zip`);
+            showToast('Vector ZIP downloaded!');
+        } else {
+            // PNG Mode
+            getActiveLogoImage(async (logoImg) => {
+                const promises = batchItems.map(async (item) => {
+                    return new Promise((resolve) => {
+                        const tempCanvas = document.createElement('canvas');
+                        const tempCtx = tempCanvas.getContext('2d');
+                        drawQRCodeToCanvasContext(item.value, tempCanvas, tempCtx, resolution, logoImg);
+
+                        tempCanvas.toBlob((blob) => {
+                            zip.file(`${item.filename}.png`, blob);
+                            resolve();
+                        }, 'image/png');
+                    });
+                });
+
+                await Promise.all(promises);
+                const content = await zip.generateAsync({ type: 'blob' });
+                triggerDownload(content, `QR-Studio-Batch-${Date.now()}.zip`);
+                showToast('Images ZIP downloaded!');
+            });
+        }
+    });
