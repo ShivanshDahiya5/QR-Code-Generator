@@ -1056,3 +1056,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 logoSvg += `<image href="${logoSrc}" x="${logoX}" y="${logoY}" width="${logoSize}" height="${logoSize}" />`;
             }
         }
+
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${resolution} ${resolution}" width="100%" height="100%">${defs}${bgRect}${modulesPath}${eyesSvg}${logoSvg}</svg>`;
+    }
+
+    // --- State Sharing Logic ---
+    function getShareableLink() {
+        const params = new URLSearchParams();
+        params.set('type', state.contentType);
+        params.set('fgMode', state.fgMode);
+        params.set('fg', state.colorFg);
+        params.set('fg2', state.colorFg2);
+        params.set('bg', state.colorBg);
+        params.set('trans', state.transparentBg);
+        params.set('dot', state.dotStyle);
+        params.set('eye', state.eyeFrameStyle);
+        params.set('logo', state.logoType);
+        params.set('scale', state.logoScale);
+        params.set('pad', state.logoPadding);
+        params.set('ecc', state.ecc);
+        params.set('margin', state.margin);
