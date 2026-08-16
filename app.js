@@ -804,3 +804,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 thumbCanvas.width = 120;
                 thumbCanvas.height = 120;
                 drawSingleQRToCanvas(item.value, thumbCanvas, logoImg);
+
+                itemDiv.innerHTML = `
+                    <div class="batch-item-thumb">
+                        <img src="${thumbCanvas.toDataURL('image/png')}" alt="QR Preview">
+                    </div>
+                    <div class="batch-item-info">
+                        <span class="batch-item-index">QR #${index + 1}</span>
+                        <span class="batch-item-value">${escapeHtml(item.value)}</span>
+                        <span class="batch-item-filename">${escapeHtml(item.filename)}</span>
+                    </div>
+                    <button class="btn-remove-batch" data-index="${index}"><i class="fa-solid fa-trash-can"></i></button>
+                `;
+
+                previewList.appendChild(itemDiv);
+            });
