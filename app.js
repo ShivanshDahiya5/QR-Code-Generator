@@ -778,3 +778,29 @@ document.addEventListener('DOMContentLoaded', () => {
         renderBatchPreview();
         showToast(`Processed ${batchItems.length} items successfully.`);
     });
+
+    function renderBatchPreview() {
+        const previewList = document.getElementById('batch-preview-list');
+        const exportSection = document.getElementById('batch-export-section');
+        const countBadge = document.getElementById('batch-count');
+
+        if (batchItems.length === 0) {
+            previewList.innerHTML = `<div class="empty-history">Process list to preview generated QR codes.</div>`;
+            exportSection.style.display = 'none';
+            countBadge.textContent = '0 items';
+            return;
+        }
+
+        previewList.innerHTML = '';
+        exportSection.style.display = 'block';
+        countBadge.textContent = `${batchItems.length} items`;
+
+        getActiveLogoImage((logoImg) => {
+            batchItems.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'batch-item';
+
+                const thumbCanvas = document.createElement('canvas');
+                thumbCanvas.width = 120;
+                thumbCanvas.height = 120;
+                drawSingleQRToCanvas(item.value, thumbCanvas, logoImg);
