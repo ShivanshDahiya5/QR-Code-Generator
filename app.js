@@ -932,3 +932,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const textData = getPayloadData();
         return generateSVGWithValue(textData);
     }
+
+    function generateSVGWithValue(textData) {
+        const qr = qrcode(0, state.ecc);
+        qr.addData(textData);
+        qr.make();
+
+        const count = qr.getModuleCount();
+        const resolution = 1000;
+        const marginModules = parseInt(state.margin, 10);
+        const totalModules = count + marginModules * 2;
+        const cellSize = resolution / totalModules;
+
+        let defs = '';
+        let fillValue = state.colorFg;
+        if (state.fgMode === 'linear') {
+            defs = `
+            <defs>
+                <linearGradient id="fgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="${state.colorFg}" />
+                    <stop offset="100%" stop-color="${state.colorFg2}" />
+                </linearGradient>
+            </defs>`;
+            fillValue = 'url(#fgGrad)';
+        } else if (state.fgMode === 'radial') {
+            defs = `
+            <defs>
+                <radialGradient id="fgGradRadial" cx="50%" cy="50%" r="70%">
+                    <stop offset="0%" stop-color="${state.colorFg}" />
+                    <stop offset="100%" stop-color="${state.colorFg2}" />
+                </radialGradient>
+            </defs>`;
+            fillValue = 'url(#fgGradRadial)';
+        }
