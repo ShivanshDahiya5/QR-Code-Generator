@@ -750,3 +750,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let qrValue = line;
             let filename = `qr-${idx + 1}`;
+
+            // Parse columns if delimiter is present
+            if (line.includes(delimiter)) {
+                const columns = line.split(delimiter).map(col => col.trim().replace(/^["']|["']$/g, ''));
+                if (nameCol !== 'none') {
+                    const nameColIdx = parseInt(nameCol, 10);
+                    if (columns.length > nameColIdx) {
+                        filename = columns[nameColIdx].replace(/[^a-zA-Z0-9_-]/g, '_');
+                        const otherCols = columns.filter((_, colIdx) => colIdx !== nameColIdx);
+                        if (otherCols.length > 0) {
+                            qrValue = otherCols[0];
+                        }
+                    }
+                }
+            }
