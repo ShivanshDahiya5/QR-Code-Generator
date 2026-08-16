@@ -998,3 +998,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         const radius = cellSize * 0.35;
                         const d = cellSize;
                         pathD += ` M ${x + radius} ${y} h ${d - 2 * radius} a ${radius},${radius} 0 0,1 ${radius},${radius} v ${d - 2 * radius} a ${radius},${radius} 0 0,1 ${-radius},${radius} h ${-(d - 2 * radius)} a ${radius},${radius} 0 0,1 ${-radius},${-radius} v ${-(d - 2 * radius)} a ${radius},${radius} 0 0,1 ${radius},${-radius} z`;
+                        } else if (state.dotStyle === 'diamond') {
+                        const cx = x + cellSize / 2;
+                        const cy = y + cellSize / 2;
+                        pathD += ` M ${cx} ${y} L ${x + cellSize} ${cy} L ${cx} ${y + cellSize} L ${x} ${cy} z`;
+                    } else if (state.dotStyle === 'classy') {
+                        const radius = cellSize * 0.4;
+                        pathD += ` M ${x + radius} ${y} h ${cellSize - radius} v ${cellSize - radius} a ${radius},${radius} 0 0,1 ${-radius},${radius} h ${-radius} v ${-cellSize + radius} a ${radius},${radius} 0 0,1 ${radius},${-radius} z`;
+                    }
+                }
+            }
+        }
+
+        let modulesPath = pathD ? `<path d="${pathD}" fill="${fillValue}" />` : '';
+
+        let eyesSvg = '';
+        const eyeLocations = [
+            { r: 0, c: 0 },
+            { r: 0, c: count - 7 },
+            { r: count - 7, c: 0 }
+        ];
