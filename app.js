@@ -1018,3 +1018,19 @@ document.addEventListener('DOMContentLoaded', () => {
             { r: 0, c: count - 7 },
             { r: count - 7, c: 0 }
         ];
+
+        eyeLocations.forEach(loc => {
+            const x = (loc.c + marginModules) * cellSize;
+            const y = (loc.r + marginModules) * cellSize;
+            const outerSize = 7 * cellSize;
+            const innerSize = 3 * cellSize;
+            const lw = cellSize;
+
+            if (state.eyeFrameStyle === 'square') {
+                eyesSvg += `<rect x="${x + lw / 2}" y="${y + lw / 2}" width="${outerSize - lw}" height="${outerSize - lw}" fill="none" stroke="${fillValue}" stroke-width="${lw}" />`;
+                eyesSvg += `<rect x="${x + 2 * cellSize}" y="${y + 2 * cellSize}" width="${innerSize}" height="${innerSize}" fill="${fillValue}" />`;
+            } else if (state.eyeFrameStyle === 'rounded') {
+                const rx = cellSize * 1.5;
+                eyesSvg += `<rect x="${x + lw / 2}" y="${y + lw / 2}" width="${outerSize - lw}" height="${outerSize - lw}" rx="${rx}" ry="${rx}" fill="none" stroke="${fillValue}" stroke-width="${lw}" />`;
+                const irx = cellSize * 0.8;
+                eyesSvg += `<rect x="${x + 2 * cellSize}" y="${y + 2 * cellSize}" width="${innerSize}" height="${innerSize}" rx="${irx}" ry="${irx}" fill="${fillValue}" />`;
