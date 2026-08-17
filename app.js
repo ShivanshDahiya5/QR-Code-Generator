@@ -1155,3 +1155,12 @@ document.addEventListener('DOMContentLoaded', () => {
             state.fgMode = params.get('fgMode') || state.fgMode;
             state.colorFg = params.get('fg') || state.colorFg;
             state.colorFg2 = params.get('fg2') || state.colorFg2;
+            state.colorBg = params.get('bg') || state.colorBg;
+            state.transparentBg = params.get('trans') === 'true';
+            state.dotStyle = params.get('dot') || state.dotStyle;
+            state.eyeFrameStyle = params.get('eye') || state.eyeFrameStyle;
+            state.logoType = params.get('logo') || state.logoType;
+            state.logoScale = parseFloat(params.get('scale')) || state.logoScale;
+            state.logoPadding = parseInt(params.get('pad')) || state.logoPadding;
+            state.ecc = params.get('ecc') || state.ecc;
+            state.margin = parseInt(params.get('margin')) || state.margin;
