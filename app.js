@@ -1171,14 +1171,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('wifi-ssid').value = params.get('ssid') || '';
                 document.getElementById('wifi-pass').value = params.get('pass') || '';
                 document.getElementById('wifi-enc').value = params.get('enc') || 'WPA';
-                } else if (state.contentType === 'vcard') {
+            } else if (state.contentType === 'vcard') {
                 document.getElementById('vc-fn').value = params.get('fn') || '';
                 document.getElementById('vc-ln').value = params.get('ln') || '';
                 document.getElementById('vc-org').value = params.get('org') || '';
                 document.getElementById('vc-title').value = params.get('title') || '';
                 document.getElementById('vc-tel').value = params.get('tel') || '';
                 document.getElementById('vc-email').value = params.get('email') || '';
-                } else if (state.contentType === 'email') {
+            } else if (state.contentType === 'email') {
                 document.getElementById('email-to').value = params.get('to') || '';
                 document.getElementById('email-subject').value = params.get('sub') || '';
                 document.getElementById('email-body').value = params.get('body') || '';
+            } else if (state.contentType === 'phone') {
+                document.getElementById('input-phone').value = params.get('val') || '';
+            }
+        }
+
+        updateControlsToMatchState();
+    }
