@@ -1097,3 +1097,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (state.contentType === 'phone') {
             params.set('val', document.getElementById('input-phone').value);
         }
+        return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    }
+
+    function updateControlsToMatchState() {
+        document.querySelectorAll('.type-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.type === state.contentType);
+        });
+        document.querySelectorAll('.content-form').forEach(f => {
+            f.classList.toggle('active', f.id === `form-${state.contentType}`);
+        });
