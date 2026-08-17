@@ -1178,3 +1178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('vc-title').value = params.get('title') || '';
                 document.getElementById('vc-tel').value = params.get('tel') || '';
                 document.getElementById('vc-email').value = params.get('email') || '';
+                } else if (state.contentType === 'email') {
+                document.getElementById('email-to').value = params.get('to') || '';
+                document.getElementById('email-subject').value = params.get('sub') || '';
+                document.getElementById('email-body').value = params.get('body') || '';
