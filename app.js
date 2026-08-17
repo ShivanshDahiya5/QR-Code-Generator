@@ -1132,3 +1132,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('#logo-presets .logo-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.logo === state.logoType);
         });
+
+        // Toggle custom logo upload field visibility
+        const uploadWrapper = document.getElementById('logo-upload-wrapper');
+        if (uploadWrapper) {
+            uploadWrapper.style.display = state.logoType === 'custom' ? 'block' : 'none';
+        }
+
+        document.getElementById('logo-size').value = Math.round(state.logoScale * 100);
+        document.getElementById('logo-size-val').textContent = Math.round(state.logoScale * 100);
+        document.getElementById('logo-padding').value = state.logoPadding;
+        document.getElementById('logo-pad-val').textContent = state.logoPadding;
