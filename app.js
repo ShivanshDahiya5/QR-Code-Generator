@@ -1143,3 +1143,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('logo-size-val').textContent = Math.round(state.logoScale * 100);
         document.getElementById('logo-padding').value = state.logoPadding;
         document.getElementById('logo-pad-val').textContent = state.logoPadding;
+        document.getElementById('ecc-level').value = state.ecc;
+        document.getElementById('margin-size').value = state.margin;
+        document.getElementById('margin-val').textContent = state.margin;
+    }
+
+    function loadStateFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('type')) {
+            state.contentType = params.get('type') || state.contentType;
+            state.fgMode = params.get('fgMode') || state.fgMode;
+            state.colorFg = params.get('fg') || state.colorFg;
+            state.colorFg2 = params.get('fg2') || state.colorFg2;
