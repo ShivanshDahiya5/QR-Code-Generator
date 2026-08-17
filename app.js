@@ -1164,3 +1164,10 @@ document.addEventListener('DOMContentLoaded', () => {
             state.logoPadding = parseInt(params.get('pad')) || state.logoPadding;
             state.ecc = params.get('ecc') || state.ecc;
             state.margin = parseInt(params.get('margin')) || state.margin;
+
+            if (state.contentType === 'url') document.getElementById('input-url').value = params.get('val') || '';
+            else if (state.contentType === 'text') document.getElementById('input-text').value = params.get('val') || '';
+            else if (state.contentType === 'wifi') {
+                document.getElementById('wifi-ssid').value = params.get('ssid') || '';
+                document.getElementById('wifi-pass').value = params.get('pass') || '';
+                document.getElementById('wifi-enc').value = params.get('enc') || 'WPA';
