@@ -1193,7 +1193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const link = getShareableLink();
         navigator.clipboard.writeText(link).then(() => {
             showToast('Shareable preset link copied to clipboard!');
-            }).catch(() => {
+        }).catch(() => {
             showToast('Failed to copy link.');
         });
     });
