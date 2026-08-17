@@ -1197,3 +1197,9 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Failed to copy link.');
         });
     });
+
+    // Initializations
+    loadStateFromUrl();
+    renderHistoryGrid();
+    renderQRCode();
+});
