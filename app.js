@@ -1189,3 +1189,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateControlsToMatchState();
     }
+    document.getElementById('btn-share-qr').addEventListener('click', () => {
+        const link = getShareableLink();
+        navigator.clipboard.writeText(link).then(() => {
+            showToast('Shareable preset link copied to clipboard!');
