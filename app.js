@@ -1107,3 +1107,16 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.content-form').forEach(f => {
             f.classList.toggle('active', f.id === `form-${state.contentType}`);
         });
+
+        colorFg.value = state.colorFg;
+        colorFgHex.value = state.colorFg;
+        colorFg2.value = state.colorFg2;
+        colorFg2Hex.value = state.colorFg2;
+        colorBg.value = state.colorBg;
+        colorBgHex.value = state.colorBg;
+        transparentBg.checked = state.transparentBg;
+
+        document.querySelectorAll('#fg-mode-control .segment-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.fgmode === state.fgMode);
+        });
+        document.getElementById('group-color-fg2').style.display = state.fgMode === 'solid' ? 'none' : 'flex';
