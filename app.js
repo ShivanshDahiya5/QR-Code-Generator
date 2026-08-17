@@ -1120,3 +1120,15 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.toggle('active', btn.dataset.fgmode === state.fgMode);
         });
         document.getElementById('group-color-fg2').style.display = state.fgMode === 'solid' ? 'none' : 'flex';
+
+        document.querySelectorAll('#dot-style-options .grid-opt').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.style === state.dotStyle);
+        });
+
+        document.querySelectorAll('#eye-frame-options .grid-opt').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.eyectrl === state.eyeFrameStyle);
+        });
+
+        document.querySelectorAll('#logo-presets .logo-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.logo === state.logoType);
+        });
