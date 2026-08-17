@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Studio Pro - Modern Dynamic QR Code Generator & Scanner</title>
-    <meta name="description" content="Generate beautiful, customizable, high-resolution QR codes with gradients, logos, custom module shapes, and built-in scanner.">
+    <meta name="description"
+        content="Generate beautiful, customizable, high-resolution QR codes with gradients, logos, custom module shapes, and built-in scanner.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- QR Code Generator Library, jsQR for Scanning, & JSZip for Batch mode -->
@@ -17,6 +21,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="app-container">
         <!-- Header -->
@@ -31,9 +36,12 @@
                 </div>
             </div>
             <div class="header-actions">
-                <button id="btn-mode-scan" class="btn-secondary"><i class="fa-solid fa-camera"></i> Scan QR Code</button>
-                <button id="btn-mode-batch" class="btn-secondary"><i class="fa-solid fa-layer-group"></i> Batch Mode</button>
-                <button id="btn-mode-gen" class="btn-primary active"><i class="fa-solid fa-wand-magic-sparkles"></i> Generator</button>
+                <button id="btn-mode-scan" class="btn-secondary"><i class="fa-solid fa-camera"></i> Scan QR
+                    Code</button>
+                <button id="btn-mode-batch" class="btn-secondary"><i class="fa-solid fa-layer-group"></i> Batch
+                    Mode</button>
+                <button id="btn-mode-gen" class="btn-primary active"><i class="fa-solid fa-wand-magic-sparkles"></i>
+                    Generator</button>
             </div>
         </header>
 
@@ -155,12 +163,18 @@
                             <div class="input-group">
                                 <label>Quick Color Palettes</label>
                                 <div class="palette-presets">
-                                    <button class="palette-btn" data-fg="#0f172a" data-fg2="#3b82f6" data-mode="linear" style="background: linear-gradient(135deg, #0f172a, #3b82f6);"></button>
-                                    <button class="palette-btn" data-fg="#8b5cf6" data-fg2="#ec4899" data-mode="linear" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);"></button>
-                                    <button class="palette-btn" data-fg="#10b981" data-fg2="#06b6d4" data-mode="linear" style="background: linear-gradient(135deg, #10b981, #06b6d4);"></button>
-                                    <button class="palette-btn" data-fg="#f59e0b" data-fg2="#ef4444" data-mode="linear" style="background: linear-gradient(135deg, #f59e0b, #ef4444);"></button>
-                                    <button class="palette-btn" data-fg="#18181b" data-fg2="#18181b" data-mode="solid" style="background: #18181b;"></button>
-                                    <button class="palette-btn" data-fg="#0284c7" data-fg2="#0284c7" data-mode="solid" style="background: #0284c7;"></button>
+                                    <button class="palette-btn" data-fg="#0f172a" data-fg2="#3b82f6" data-mode="linear"
+                                        style="background: linear-gradient(135deg, #0f172a, #3b82f6);"></button>
+                                    <button class="palette-btn" data-fg="#8b5cf6" data-fg2="#ec4899" data-mode="linear"
+                                        style="background: linear-gradient(135deg, #8b5cf6, #ec4899);"></button>
+                                    <button class="palette-btn" data-fg="#10b981" data-fg2="#06b6d4" data-mode="linear"
+                                        style="background: linear-gradient(135deg, #10b981, #06b6d4);"></button>
+                                    <button class="palette-btn" data-fg="#f59e0b" data-fg2="#ef4444" data-mode="linear"
+                                        style="background: linear-gradient(135deg, #f59e0b, #ef4444);"></button>
+                                    <button class="palette-btn" data-fg="#18181b" data-fg2="#18181b" data-mode="solid"
+                                        style="background: #18181b;"></button>
+                                    <button class="palette-btn" data-fg="#0284c7" data-fg2="#0284c7" data-mode="solid"
+                                        style="background: #0284c7;"></button>
                                 </div>
                             </div>
                         </div>
@@ -176,19 +190,35 @@
                             <div class="input-group">
                                 <label>Body Modules Shape</label>
                                 <div class="grid-options" id="dot-style-options">
-                                    <button class="grid-opt active" data-style="square"><div class="shape-preview shape-square"></div>Square</button>
-                                    <button class="grid-opt" data-style="dots"><div class="shape-preview shape-dot"></div>Dots</button>
-                                    <button class="grid-opt" data-style="rounded"><div class="shape-preview shape-rounded"></div>Rounded</button>
-                                    <button class="grid-opt" data-style="diamond"><div class="shape-preview shape-diamond"></div>Diamond</button>
-                                    <button class="grid-opt" data-style="classy"><div class="shape-preview shape-classy"></div>Classy</button>
+                                    <button class="grid-opt active" data-style="square">
+                                        <div class="shape-preview shape-square"></div>Square
+                                    </button>
+                                    <button class="grid-opt" data-style="dots">
+                                        <div class="shape-preview shape-dot"></div>Dots
+                                    </button>
+                                    <button class="grid-opt" data-style="rounded">
+                                        <div class="shape-preview shape-rounded"></div>Rounded
+                                    </button>
+                                    <button class="grid-opt" data-style="diamond">
+                                        <div class="shape-preview shape-diamond"></div>Diamond
+                                    </button>
+                                    <button class="grid-opt" data-style="classy">
+                                        <div class="shape-preview shape-classy"></div>Classy
+                                    </button>
                                 </div>
                             </div>
                             <div class="input-group">
                                 <label>Eye Corner Frames</label>
                                 <div class="grid-options" id="eye-frame-options">
-                                    <button class="grid-opt active" data-eyectrl="square"><div class="eye-preview eye-sq"></div>Square</button>
-                                    <button class="grid-opt" data-eyectrl="rounded"><div class="eye-preview eye-rnd"></div>Rounded</button>
-                                    <button class="grid-opt" data-eyectrl="circle"><div class="eye-preview eye-circ"></div>Circle</button>
+                                    <button class="grid-opt active" data-eyectrl="square">
+                                        <div class="eye-preview eye-sq"></div>Square
+                                    </button>
+                                    <button class="grid-opt" data-eyectrl="rounded">
+                                        <div class="eye-preview eye-rnd"></div>Rounded
+                                    </button>
+                                    <button class="grid-opt" data-eyectrl="circle">
+                                        <div class="eye-preview eye-circ"></div>Circle
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -204,13 +234,20 @@
                             <div class="input-group">
                                 <label>Select Preset Logo or Upload</label>
                                 <div class="logo-presets" id="logo-presets">
-                                    <button class="logo-btn active" data-logo="none"><i class="fa-solid fa-ban"></i> None</button>
-                                    <button class="logo-btn" data-logo="github"><i class="fa-brands fa-github"></i></button>
-                                    <button class="logo-btn" data-logo="twitter"><i class="fa-brands fa-x-twitter"></i></button>
-                                    <button class="logo-btn" data-logo="linkedin"><i class="fa-brands fa-linkedin"></i></button>
-                                    <button class="logo-btn" data-logo="whatsapp"><i class="fa-brands fa-whatsapp"></i></button>
-                                    <button class="logo-btn" data-logo="globe"><i class="fa-solid fa-globe"></i></button>
-                                    <button class="logo-btn" data-logo="custom"><i class="fa-solid fa-cloud-arrow-up"></i> Custom</button>
+                                    <button class="logo-btn active" data-logo="none"><i class="fa-solid fa-ban"></i>
+                                        None</button>
+                                    <button class="logo-btn" data-logo="github"><i
+                                            class="fa-brands fa-github"></i></button>
+                                    <button class="logo-btn" data-logo="twitter"><i
+                                            class="fa-brands fa-x-twitter"></i></button>
+                                    <button class="logo-btn" data-logo="linkedin"><i
+                                            class="fa-brands fa-linkedin"></i></button>
+                                    <button class="logo-btn" data-logo="whatsapp"><i
+                                            class="fa-brands fa-whatsapp"></i></button>
+                                    <button class="logo-btn" data-logo="globe"><i
+                                            class="fa-solid fa-globe"></i></button>
+                                    <button class="logo-btn" data-logo="custom"><i
+                                            class="fa-solid fa-cloud-arrow-up"></i> Custom</button>
                                 </div>
                             </div>
                             <div class="input-group" id="logo-upload-wrapper" style="display: none;">
@@ -247,7 +284,8 @@
                                 </select>
                             </div>
                             <div class="input-group">
-                                <label for="margin-size">Quiet Zone Margin: <span id="margin-val">2</span> modules</label>
+                                <label for="margin-size">Quiet Zone Margin: <span id="margin-val">2</span>
+                                    modules</label>
                                 <input type="range" id="margin-size" min="0" max="6" value="2">
                             </div>
                         </div>
@@ -282,12 +320,16 @@
                             </div>
                         </div>
                         <div class="btn-group">
-                            <button id="btn-download-png" class="btn-primary btn-large"><i class="fa-solid fa-download"></i> Download PNG</button>
-                            <button id="btn-download-svg" class="btn-secondary btn-large"><i class="fa-solid fa-file-code"></i> Download SVG</button>
+                            <button id="btn-download-png" class="btn-primary btn-large"><i
+                                    class="fa-solid fa-download"></i> Download PNG</button>
+                            <button id="btn-download-svg" class="btn-secondary btn-large"><i
+                                    class="fa-solid fa-file-code"></i> Download SVG</button>
                         </div>
                         <div class="secondary-export-tools">
-                            <button id="btn-copy-img" class="btn-subtle"><i class="fa-regular fa-copy"></i> Copy Image</button>
-                            <button id="btn-share-qr" class="btn-subtle"><i class="fa-solid fa-share-nodes"></i> Share Link</button>
+                            <button id="btn-copy-img" class="btn-subtle"><i class="fa-regular fa-copy"></i> Copy
+                                Image</button>
+                            <button id="btn-share-qr" class="btn-subtle"><i class="fa-solid fa-share-nodes"></i> Share
+                                Link</button>
                         </div>
                     </div>
                 </div>
@@ -315,8 +357,10 @@
                     </div>
 
                     <div class="scanner-tabs">
-                        <button class="scan-tab-btn active" id="tab-webcam"><i class="fa-solid fa-video"></i> Use Camera</button>
-                        <button class="scan-tab-btn" id="tab-upload"><i class="fa-solid fa-file-image"></i> Upload File</button>
+                        <button class="scan-tab-btn active" id="tab-webcam"><i class="fa-solid fa-video"></i> Use
+                            Camera</button>
+                        <button class="scan-tab-btn" id="tab-upload"><i class="fa-solid fa-file-image"></i> Upload
+                            File</button>
                     </div>
 
                     <!-- Webcam View -->
@@ -327,7 +371,8 @@
                                 <div class="scan-target-box"></div>
                             </div>
                         </div>
-                        <button id="btn-toggle-cam" class="btn-primary margin-top"><i class="fa-solid fa-power-off"></i> Start Camera</button>
+                        <button id="btn-toggle-cam" class="btn-primary margin-top"><i class="fa-solid fa-power-off"></i>
+                            Start Camera</button>
                     </div>
 
                     <!-- File Upload View -->
@@ -344,8 +389,10 @@
                         <div class="result-title"><i class="fa-solid fa-circle-check"></i> Code Detected</div>
                         <div class="result-body" id="scan-result-text">---</div>
                         <div class="result-actions">
-                            <button id="btn-copy-scan" class="btn-secondary"><i class="fa-regular fa-copy"></i> Copy Text</button>
-                            <a id="btn-open-scan" target="_blank" class="btn-primary" style="display: none;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Link</a>
+                            <button id="btn-copy-scan" class="btn-secondary"><i class="fa-regular fa-copy"></i> Copy
+                                Text</button>
+                            <a id="btn-open-scan" target="_blank" class="btn-primary" style="display: none;"><i
+                                    class="fa-solid fa-arrow-up-right-from-square"></i> Open Link</a>
                         </div>
                     </div>
                 </div>
@@ -359,7 +406,8 @@
                 <div class="section-title">
                     <i class="fa-solid fa-file-import"></i> 1. Import List or CSV
                 </div>
-                <p class="panel-desc">Paste lines or upload a CSV file. Each row will generate a customized QR using your active style settings.</p>
+                <p class="panel-desc">Paste lines or upload a CSV file. Each row will generate a customized QR using
+                    your active style settings.</p>
 
                 <!-- CSV Upload Drag & Drop -->
                 <div class="dropzone" id="batch-dropzone">
@@ -371,7 +419,8 @@
                 <!-- Textarea Paste Area -->
                 <div class="input-group">
                     <label for="batch-textarea">Or Paste List (One QR per line)</label>
-                    <textarea id="batch-textarea" rows="8" placeholder="https://google.com&#10;https://apple.com&#10;https://github.com"></textarea>
+                    <textarea id="batch-textarea" rows="8"
+                        placeholder="https://google.com&#10;https://apple.com&#10;https://github.com"></textarea>
                 </div>
 
                 <div class="form-row">
@@ -394,7 +443,8 @@
                     </div>
                 </div>
 
-                <button id="btn-batch-process" class="btn-primary btn-large margin-top"><i class="fa-solid fa-gears"></i> Process Batch</button>
+                <button id="btn-batch-process" class="btn-primary btn-large margin-top"><i
+                        class="fa-solid fa-gears"></i> Process Batch</button>
             </section>
 
             <!-- Right Panel: Batch Processing Output -->
@@ -426,7 +476,8 @@
                             </select>
                         </div>
                     </div>
-                    <button id="btn-batch-download-zip" class="btn-primary btn-large margin-top"><i class="fa-solid fa-file-zipper"></i> Generate & Download ZIP</button>
+                    <button id="btn-batch-download-zip" class="btn-primary btn-large margin-top"><i
+                            class="fa-solid fa-file-zipper"></i> Generate & Download ZIP</button>
                 </div>
             </section>
         </main>
@@ -437,4 +488,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>
