@@ -18,9 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
         history: JSON.parse(localStorage.getItem('qr_studio_history') || '[]')
     };
 
-    // Canvas & Context
+    // --- Canvas & Context ---
     const canvas = document.getElementById('qr-canvas');
     const ctx = canvas.getContext('2d');
+
     const presetLogos = {
         github: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%230f172a"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>`,
         twitter: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%230f172a"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`,
@@ -32,23 +33,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function getPayloadData() {
         switch (state.contentType) {
             case 'url':
-                return document.getElementById('input-url').value.trim() || 'https://antigravity.ai';
-            case 'text':
-                return document.getElementById('input-text').value.trim() || 'QR Studio Pro';
+                return document.getElementById('input-url')?.value.trim() || 'https://antigravity.ai';
             case 'wifi': {
-                const ssid = document.getElementById('wifi-ssid').value.trim() || 'WiFi-Network';
+                const ssid = document.getElementById('wifi-ssid')?.value.trim() || 'WiFi-Network';
                 return `WIFI:S:${ssid};T:WPA;P:;;`;
             }
             case 'vcard': {
-                const name = document.getElementById('vc-name').value.trim() || 'John Doe';
+                const name = document.getElementById('vc-name')?.value.trim() || 'John Doe';
                 return `BEGIN:VCARD\nVERSION:3.0\nN:${name};\nFN:${name}\nEND:VCARD`;
             }
             case 'email': {
-                const to = document.getElementById('email-to').value.trim() || 'hello@example.com';
+                const to = document.getElementById('email-to')?.value.trim() || 'hello@example.com';
                 return `mailto:${to}`;
             }
             case 'phone': {
-                const phone = document.getElementById('input-phone').value.trim() || '+1234567890';
+                const phone = document.getElementById('input-phone')?.value.trim() || '+1234567890';
                 return `tel:${phone}`;
             }
             default:
@@ -82,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Reusable canvas draw helper for Single & Batch generation
     function drawQRCodeToCanvasContext(textData, targetCanvas, targetCtx, resolution, logoImg) {
-        // Generate matrix data using qrcode-generator
         const qr = qrcode(0, state.ecc);
         qr.addData(textData);
         qr.make();
@@ -104,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             targetCtx.fillRect(0, 0, resolution, resolution);
         }
 
-        // Prepare Foreground Fill Style (Solid or Gradient)
+        // Foreground Fill Style
         let fgStyle;
         if (state.fgMode === 'solid') {
             fgStyle = state.colorFg;
@@ -133,12 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let r = 0; r < count; r++) {
             for (let c = 0; c < count; c++) {
                 if (qr.isDark(r, c)) {
-                    if (isEyeModule(r, c)) continue; // Handled separately
+                    if (isEyeModule(r, c)) continue;
 
                     const x = (c + marginModules) * cellSize;
                     const y = (r + marginModules) * cellSize;
 
-                    // Draw custom dot shapes
                     if (state.dotStyle === 'square') {
                         targetCtx.fillRect(x, y, cellSize + 0.5, cellSize + 0.5);
                     } else if (state.dotStyle === 'dots') {
@@ -178,19 +175,17 @@ document.addEventListener('DOMContentLoaded', () => {
             drawCustomEye(targetCtx, x, y, outerSize, innerSize, cellSize, fgStyle);
         });
 
-        // Draw Center Logo Overlay if enabled
+        // Center Logo Overlay
         if (state.logoType !== 'none' && logoImg) {
             const logoSize = resolution * state.logoScale;
             const logoX = (resolution - logoSize) / 2;
             const logoY = (resolution - logoSize) / 2;
             const pad = state.logoPadding * 4;
 
-            // Draw solid background behind logo to mask the QR modules
             targetCtx.fillStyle = state.transparentBg ? '#ffffff' : state.colorBg;
             drawRoundedRect(targetCtx, logoX - pad, logoY - pad, logoSize + pad * 2, logoSize + pad * 2, 16);
             targetCtx.fill();
 
-            // Draw Image
             targetCtx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
         }
     }
@@ -201,17 +196,14 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.strokeStyle = fgStyle;
         const lineWidth = cellSize;
 
-        // Outer Frame
         if (state.eyeFrameStyle === 'square') {
             ctx.strokeRect(x + lineWidth / 2, y + lineWidth / 2, outerSize - lineWidth, outerSize - lineWidth);
             ctx.lineWidth = lineWidth;
-            // Center Dot
             ctx.fillRect(x + 2 * cellSize, y + 2 * cellSize, innerSize, innerSize);
         } else if (state.eyeFrameStyle === 'rounded') {
             ctx.lineWidth = lineWidth;
             drawRoundedRect(ctx, x + lineWidth / 2, y + lineWidth / 2, outerSize - lineWidth, outerSize - lineWidth, cellSize * 1.5);
             ctx.stroke();
-            // Center Inner Dot Rounded
             drawRoundedRect(ctx, x + 2 * cellSize, y + 2 * cellSize, innerSize, innerSize, cellSize * 0.8);
             ctx.fill();
         } else if (state.eyeFrameStyle === 'circle') {
@@ -219,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.beginPath();
             ctx.arc(x + outerSize / 2, y + outerSize / 2, (outerSize - lineWidth) / 2, 0, Math.PI * 2);
             ctx.stroke();
-            // Center Inner Circle
             ctx.beginPath();
             ctx.arc(x + outerSize / 2, y + outerSize / 2, innerSize / 2, 0, Math.PI * 2);
             ctx.fill();
@@ -253,11 +244,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fill();
     }
 
-    // --- Event Listeners Setup ---
-
-    // 1. Content Type Buttons
+    // --- Content Type Buttons ---
     document.querySelectorAll('.type-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', () => {
             document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
@@ -265,19 +254,19 @@ document.addEventListener('DOMContentLoaded', () => {
             state.contentType = type;
 
             document.querySelectorAll('.content-form').forEach(f => f.classList.remove('active'));
-            document.getElementById(`form-${type}`).classList.add('active');
+            document.getElementById(`form-${type}`)?.classList.add('active');
 
             renderQRCode();
         });
     });
 
-    // 2. Real-time Text & Form Inputs
+    // --- Form Inputs ---
     const allInputs = document.querySelectorAll('.content-form input, .content-form textarea, .content-form select');
     allInputs.forEach(input => {
         input.addEventListener('input', renderQRCode);
     });
 
-    // 3. Accordion Toggle
+    // --- Accordions ---
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', () => {
             const item = header.parentElement;
@@ -285,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 4. Color Controls
+    // --- Color Controls ---
     const colorFg = document.getElementById('color-fg');
     const colorFgHex = document.getElementById('color-fg-hex');
     const colorFg2 = document.getElementById('color-fg2');
@@ -294,67 +283,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const colorBgHex = document.getElementById('color-bg-hex');
     const transparentBg = document.getElementById('transparent-bg');
 
-    colorFg.addEventListener('input', (e) => {
+    colorFg?.addEventListener('input', (e) => {
         state.colorFg = e.target.value;
-        colorFgHex.value = e.target.value;
+        if (colorFgHex) colorFgHex.value = e.target.value;
         renderQRCode();
     });
 
-    colorFgHex.addEventListener('input', (e) => {
+    colorFgHex?.addEventListener('input', (e) => {
         let val = e.target.value;
         if (!val.startsWith('#')) val = '#' + val;
         if (val.match(/^#[0-9A-Fa-f]{6}$/)) {
             state.colorFg = val;
-            colorFg.value = val;
+            if (colorFg) colorFg.value = val;
             renderQRCode();
         }
     });
 
-    colorFg2.addEventListener('input', (e) => {
+    colorFg2?.addEventListener('input', (e) => {
         state.colorFg2 = e.target.value;
-        colorFg2Hex.value = e.target.value;
+        if (colorFg2Hex) colorFg2Hex.value = e.target.value;
         renderQRCode();
     });
 
-    colorFg2Hex.addEventListener('input', (e) => {
+    colorFg2Hex?.addEventListener('input', (e) => {
         let val = e.target.value;
         if (!val.startsWith('#')) val = '#' + val;
         if (val.match(/^#[0-9A-Fa-f]{6}$/)) {
             state.colorFg2 = val;
-            colorFg2.value = val;
+            if (colorFg2) colorFg2.value = val;
             renderQRCode();
         }
     });
 
-    colorBg.addEventListener('input', (e) => {
+    colorBg?.addEventListener('input', (e) => {
         state.colorBg = e.target.value;
-        colorBgHex.value = e.target.value;
+        if (colorBgHex) colorBgHex.value = e.target.value;
         renderQRCode();
     });
 
-    colorBgHex.addEventListener('input', (e) => {
+    colorBgHex?.addEventListener('input', (e) => {
         let val = e.target.value;
         if (!val.startsWith('#')) val = '#' + val;
         if (val.match(/^#[0-9A-Fa-f]{6}$/)) {
             state.colorBg = val;
-            colorBg.value = val;
+            if (colorBg) colorBg.value = val;
             renderQRCode();
         }
     });
 
-    transparentBg.addEventListener('change', (e) => {
+    transparentBg?.addEventListener('change', (e) => {
         state.transparentBg = e.target.checked;
         renderQRCode();
     });
 
-    // Segmented Mode (Solid, Linear, Radial)
+    // Foreground Mode (Solid, Linear, Radial)
     document.querySelectorAll('#fg-mode-control .segment-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('#fg-mode-control .segment-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             state.fgMode = btn.dataset.fgmode;
-            document.getElementById('group-color-fg2').style.display = state.fgMode === 'solid' ? 'none' : 'flex';
+            const groupFg2 = document.getElementById('group-color-fg2');
+            if (groupFg2) groupFg2.style.display = state.fgMode === 'solid' ? 'none' : 'flex';
             renderQRCode();
         });
     });
@@ -366,21 +356,22 @@ document.addEventListener('DOMContentLoaded', () => {
             state.colorFg2 = btn.dataset.fg2;
             state.fgMode = btn.dataset.mode;
 
-            colorFg.value = state.colorFg;
-            colorFgHex.value = state.colorFg;
-            colorFg2.value = state.colorFg2;
-            colorFg2Hex.value = state.colorFg2;
+            if (colorFg) colorFg.value = state.colorFg;
+            if (colorFgHex) colorFgHex.value = state.colorFg;
+            if (colorFg2) colorFg2.value = state.colorFg2;
+            if (colorFg2Hex) colorFg2Hex.value = state.colorFg2;
 
             document.querySelectorAll('#fg-mode-control .segment-btn').forEach(b => {
                 b.classList.toggle('active', b.dataset.fgmode === state.fgMode);
             });
-            document.getElementById('group-color-fg2').style.display = state.fgMode === 'solid' ? 'none' : 'flex';
+            const groupFg2 = document.getElementById('group-color-fg2');
+            if (groupFg2) groupFg2.style.display = state.fgMode === 'solid' ? 'none' : 'flex';
 
             renderQRCode();
         });
     });
 
-    // 5. Shapes Options
+    // Shapes Options
     document.querySelectorAll('#dot-style-options .grid-opt').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('#dot-style-options .grid-opt').forEach(b => b.classList.remove('active'));
@@ -399,14 +390,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 6. Logo Overlay Controls
+    // Logo Overlay Controls
     document.querySelectorAll('#logo-presets .logo-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('#logo-presets .logo-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             state.logoType = btn.dataset.logo;
 
-            // Show/Hide custom file upload container depending on selection
             const uploadWrapper = document.getElementById('logo-upload-wrapper');
             if (uploadWrapper) {
                 uploadWrapper.style.display = state.logoType === 'custom' ? 'block' : 'none';
@@ -417,7 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const logoUpload = document.getElementById('logo-upload');
-    logoUpload.addEventListener('change', (e) => {
+    logoUpload?.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -433,32 +423,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.getElementById('logo-size').addEventListener('input', (e) => {
+    document.getElementById('logo-size')?.addEventListener('input', (e) => {
         state.logoScale = parseInt(e.target.value, 10) / 100;
-        document.getElementById('logo-size-val').textContent = e.target.value;
+        const valElem = document.getElementById('logo-size-val');
+        if (valElem) valElem.textContent = e.target.value;
         renderQRCode();
     });
 
-    document.getElementById('logo-padding').addEventListener('input', (e) => {
+    document.getElementById('logo-padding')?.addEventListener('input', (e) => {
         state.logoPadding = parseInt(e.target.value, 10);
-        document.getElementById('logo-pad-val').textContent = e.target.value;
+        const valElem = document.getElementById('logo-pad-val');
+        if (valElem) valElem.textContent = e.target.value;
         renderQRCode();
     });
 
-    // 7. Advanced ECC & Margin
-    document.getElementById('ecc-level').addEventListener('change', (e) => {
+    // ECC & Margin
+    document.getElementById('ecc-level')?.addEventListener('change', (e) => {
         state.ecc = e.target.value;
         renderQRCode();
     });
 
-    document.getElementById('margin-size').addEventListener('input', (e) => {
+    document.getElementById('margin-size')?.addEventListener('input', (e) => {
         state.margin = e.target.value;
-        document.getElementById('margin-val').textContent = e.target.value;
+        const valElem = document.getElementById('margin-val');
+        if (valElem) valElem.textContent = e.target.value;
         renderQRCode();
     });
 
     // --- Downloads & Export Functions ---
-
     function saveToHistory(dataUrl) {
         state.history.unshift(dataUrl);
         if (state.history.length > 8) state.history.pop();
@@ -468,6 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderHistoryGrid() {
         const grid = document.getElementById('history-grid');
+        if (!grid) return;
         if (state.history.length === 0) {
             grid.innerHTML = `<div class="empty-history">No saved QR codes yet. Generated items appear here.</div>`;
             return;
@@ -480,10 +473,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
-    document.getElementById('btn-download-png').addEventListener('click', () => {
-        const exportRes = parseInt(document.getElementById('export-res').value, 10);
+    document.getElementById('btn-download-png')?.addEventListener('click', () => {
+        const exportRes = parseInt(document.getElementById('export-res')?.value || '1000', 10);
 
-        // Render to temporary canvas at target resolution
         const tempCanvas = document.createElement('canvas');
         tempCanvas.width = exportRes;
         tempCanvas.height = exportRes;
@@ -492,7 +484,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const dataUrl = tempCanvas.toDataURL('image/png');
 
-        // Trigger Download
         const link = document.createElement('a');
         link.download = `QR-Studio-${Date.now()}.png`;
         link.href = dataUrl;
@@ -502,7 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast('PNG QR Code downloaded successfully!');
     });
 
-    document.getElementById('btn-download-svg').addEventListener('click', () => {
+    document.getElementById('btn-download-svg')?.addEventListener('click', () => {
         const svgString = generateSVG();
         const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
         const dataUrl = URL.createObjectURL(blob);
@@ -512,13 +503,12 @@ document.addEventListener('DOMContentLoaded', () => {
         link.href = dataUrl;
         link.click();
 
-        // Save a PNG thumbnail to history
         const pngUrl = canvas.toDataURL('image/png');
         saveToHistory(pngUrl);
         showToast('Vector SVG QR Code downloaded successfully!');
     });
 
-    document.getElementById('btn-copy-img').addEventListener('click', async () => {
+    document.getElementById('btn-copy-img')?.addEventListener('click', async () => {
         try {
             canvas.toBlob(async (blob) => {
                 await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
@@ -529,14 +519,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.getElementById('btn-clear-history').addEventListener('click', () => {
+    document.getElementById('btn-clear-history')?.addEventListener('click', () => {
         state.history = [];
         localStorage.removeItem('qr_studio_history');
         renderHistoryGrid();
         showToast('History cleared');
     });
 
-    // --- View Switcher (Generator vs Batch vs Scanner) ---
+    // --- View Switcher ---
     const genView = document.getElementById('generator-view');
     const batchView = document.getElementById('batch-view');
     const scanView = document.getElementById('scanner-view');
@@ -552,133 +542,238 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.remove('btn-primary');
             }
         });
-        activeBtn.classList.add('active');
-        activeBtn.classList.remove('btn-secondary');
-        activeBtn.classList.add('btn-primary');
+        if (activeBtn) {
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('btn-secondary');
+            activeBtn.classList.add('btn-primary');
+        }
 
-        genView.style.display = 'none';
-        batchView.style.display = 'none';
-        scanView.style.display = 'none';
+        if (genView) genView.style.display = 'none';
+        if (batchView) batchView.style.display = 'none';
+        if (scanView) scanView.style.display = 'none';
 
-        if (activeView === genView) genView.style.display = 'grid';
-        else if (activeView === batchView) batchView.style.display = 'grid';
-        else if (activeView === scanView) scanView.style.display = 'flex';
+        if (activeView === genView && genView) genView.style.display = 'grid';
+        else if (activeView === batchView && batchView) batchView.style.display = 'grid';
+        else if (activeView === scanView && scanView) scanView.style.display = 'flex';
 
         if (activeView !== scanView) {
             stopWebcam();
         }
     }
 
-    btnGen.addEventListener('click', () => switchView(btnGen, genView));
-    btnBatch.addEventListener('click', () => switchView(btnBatch, batchView));
-    btnScan.addEventListener('click', () => switchView(btnScan, scanView));
+    btnGen?.addEventListener('click', () => switchView(btnGen, genView));
+    btnBatch?.addEventListener('click', () => switchView(btnBatch, batchView));
+    btnScan?.addEventListener('click', () => switchView(btnScan, scanView));
 
+    // ==========================================
     // --- QR Scanner Functionality ---
+    // ==========================================
     const video = document.getElementById('scan-video');
+    const scanDropzone = document.getElementById('scan-dropzone');
+    const scanFileInput = document.getElementById('scan-file-input');
+    const btnToggleCam = document.getElementById('btn-toggle-cam');
+    
     let videoStream = null;
     let scanningActive = false;
+    let scanAnimFrameId = null;
+
+    // Dedicated reusable canvas for video frame analysis
+    const scanCanvas = document.createElement('canvas');
+    const scanCtx = scanCanvas.getContext('2d', { willReadFrequently: true });
 
     async function startWebcam() {
         try {
-            videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+            const constraints = {
+                video: {
+                    facingMode: { ideal: "environment" },
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                },
+                audio: false
+            };
+
+            videoStream = await navigator.mediaDevices.getUserMedia(constraints);
             video.srcObject = videoStream;
-            video.setAttribute("playsinline", true);
-            video.play();
+            video.setAttribute("playsinline", "true");
+            video.muted = true;
+            await video.play();
+
             scanningActive = true;
-            requestAnimationFrame(tickScan);
+            if (btnToggleCam) btnToggleCam.innerHTML = `<i class="fa-solid fa-stop"></i> Stop Camera`;
+            scanAnimFrameId = requestAnimationFrame(tickScan);
         } catch (err) {
+            console.error("Camera Error:", err);
             showToast('Camera access denied or unequipped.');
+            if (btnToggleCam) btnToggleCam.innerHTML = `<i class="fa-solid fa-power-off"></i> Start Camera`;
         }
     }
 
     function stopWebcam() {
+        if (scanAnimFrameId) {
+            cancelAnimationFrame(scanAnimFrameId);
+            scanAnimFrameId = null;
+        }
         if (videoStream) {
             videoStream.getTracks().forEach(track => track.stop());
             videoStream = null;
         }
+        if (video) {
+            video.srcObject = null;
+        }
         scanningActive = false;
+        if (btnToggleCam) btnToggleCam.innerHTML = `<i class="fa-solid fa-power-off"></i> Start Camera`;
     }
 
-    document.getElementById('btn-toggle-cam').addEventListener('click', () => {
+    btnToggleCam?.addEventListener('click', () => {
         if (scanningActive) {
             stopWebcam();
-            document.getElementById('btn-toggle-cam').innerHTML = `<i class="fa-solid fa-power-off"></i> Start Camera`;
         } else {
             startWebcam();
-            document.getElementById('btn-toggle-cam').innerHTML = `<i class="fa-solid fa-stop"></i> Stop Camera`;
         }
     });
 
     function tickScan() {
         if (!scanningActive) return;
-        if (video.readyState === video.HAVE_ENOUGH_DATA) {
-            const scanCanvas = document.createElement('canvas');
+
+        if (video.readyState >= video.HAVE_CURRENT_DATA && video.videoWidth > 0 && video.videoHeight > 0) {
             scanCanvas.width = video.videoWidth;
             scanCanvas.height = video.videoHeight;
-            const scanCtx = scanCanvas.getContext('2d');
             scanCtx.drawImage(video, 0, 0, scanCanvas.width, scanCanvas.height);
+
             const imageData = scanCtx.getImageData(0, 0, scanCanvas.width, scanCanvas.height);
 
-            const code = jsQR(imageData.data, imageData.width, imageData.height, {
-                inversionAttempts: "dontInvert",
-            });
+            if (typeof jsQR !== 'undefined') {
+                const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                    inversionAttempts: "attemptBoth",
+                });
 
-            if (code && code.data) {
-                displayScanResult(code.data);
-                stopWebcam();
-                document.getElementById('btn-toggle-cam').innerHTML = `<i class="fa-solid fa-power-off"></i> Start Camera`;
-                return;
-            }
-        }
-        requestAnimationFrame(tickScan);
-    }
-
-    const scanFileInput = document.getElementById('scan-file-input');
-    scanFileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const img = new Image();
-            img.onload = () => {
-                const scanCanvas = document.createElement('canvas');
-                scanCanvas.width = img.width;
-                scanCanvas.height = img.height;
-                const scanCtx = scanCanvas.getContext('2d');
-                scanCtx.drawImage(img, 0, 0);
-                const imageData = scanCtx.getImageData(0, 0, img.width, img.height);
-                const code = jsQR(imageData.data, imageData.width, imageData.height);
                 if (code && code.data) {
                     displayScanResult(code.data);
-                } else {
-                    showToast('No QR code detected in image.');
+                    stopWebcam();
+                    showToast('QR code scanned successfully!');
+                    return;
+                }
+            }
+        }
+        scanAnimFrameId = requestAnimationFrame(tickScan);
+    }
+
+    function processImageFileForQR(file) {
+        if (!file || !file.type.startsWith('image/')) {
+            showToast('Please select a valid image file.');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = img.naturalWidth || img.width;
+                tempCanvas.height = img.naturalHeight || img.height;
+                const tempCtx = tempCanvas.getContext('2d', { willReadFrequently: true });
+                tempCtx.drawImage(img, 0, 0);
+
+                const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+                if (typeof jsQR !== 'undefined') {
+                    const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                        inversionAttempts: "attemptBoth",
+                    });
+
+                    if (code && code.data) {
+                        displayScanResult(code.data);
+                        showToast('QR code detected!');
+                    } else {
+                        showToast('No QR code detected in image.');
+                    }
                 }
             };
-            img.src = URL.createObjectURL(file);
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    scanFileInput?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            processImageFileForQR(file);
+            e.target.value = '';
         }
     });
+
+    if (scanDropzone) {
+        scanDropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            scanDropzone.style.borderColor = 'var(--primary)';
+            scanDropzone.style.background = 'rgba(59, 130, 246, 0.08)';
+        });
+
+        scanDropzone.addEventListener('dragleave', () => {
+            scanDropzone.style.borderColor = 'var(--border-color)';
+            scanDropzone.style.background = 'transparent';
+        });
+
+        scanDropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            scanDropzone.style.borderColor = 'var(--border-color)';
+            scanDropzone.style.background = 'transparent';
+
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                processImageFileForQR(file);
+            }
+        });
+    }
 
     function displayScanResult(text) {
         const card = document.getElementById('scan-result-card');
         const textElem = document.getElementById('scan-result-text');
         const openBtn = document.getElementById('btn-open-scan');
 
-        textElem.textContent = text;
-        card.style.display = 'flex';
+        if (textElem) textElem.textContent = text;
+        if (card) card.style.display = 'flex';
 
-        if (text.startsWith('http://') || text.startsWith('https://')) {
-            openBtn.href = text;
-            openBtn.style.display = 'inline-flex';
-        } else {
-            openBtn.style.display = 'none';
+        if (openBtn) {
+            if (/^https?:\/\//i.test(text)) {
+                openBtn.href = text;
+                openBtn.style.display = 'inline-flex';
+            } else {
+                openBtn.style.display = 'none';
+            }
         }
     }
 
-    document.getElementById('btn-copy-scan').addEventListener('click', () => {
-        const text = document.getElementById('scan-result-text').textContent;
-        navigator.clipboard.writeText(text);
-        showToast('Scan result copied to clipboard!');
+    document.getElementById('btn-copy-scan')?.addEventListener('click', () => {
+        const text = document.getElementById('scan-result-text')?.textContent || '';
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Scan result copied to clipboard!');
+        }).catch(() => {
+            showToast('Failed to copy text.');
+        });
     });
 
+    document.getElementById('tab-webcam')?.addEventListener('click', () => {
+        document.getElementById('tab-webcam')?.classList.add('active');
+        document.getElementById('tab-upload')?.classList.remove('active');
+        const webcamContent = document.getElementById('scan-webcam-content');
+        const uploadContent = document.getElementById('scan-upload-content');
+        if (webcamContent) webcamContent.style.display = 'flex';
+        if (uploadContent) uploadContent.style.display = 'none';
+    });
+
+    document.getElementById('tab-upload')?.addEventListener('click', () => {
+        document.getElementById('tab-upload')?.classList.add('active');
+        document.getElementById('tab-webcam')?.classList.remove('active');
+        const webcamContent = document.getElementById('scan-webcam-content');
+        const uploadContent = document.getElementById('scan-upload-content');
+        if (uploadContent) uploadContent.style.display = 'flex';
+        if (webcamContent) webcamContent.style.display = 'none';
+        stopWebcam();
+    });
+
+    // ==========================================
     // --- Batch Mode Processing Logic ---
+    // ==========================================
     let batchItems = [];
     let loadedCsvData = null;
 
@@ -686,61 +781,60 @@ document.addEventListener('DOMContentLoaded', () => {
     const batchTextarea = document.getElementById('batch-textarea');
     const batchDropzone = document.getElementById('batch-dropzone');
 
-    // CSV File Select
-    batchFileInput.addEventListener('change', (e) => {
+    batchFileInput?.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (event) => {
                 loadedCsvData = event.target.result;
-                batchTextarea.value = `File loaded: ${file.name} (${file.size} bytes)\nClick "Process Batch" to parse.`;
+                if (batchTextarea) batchTextarea.value = `File loaded: ${file.name} (${file.size} bytes)\nClick "Process Batch" to parse.`;
                 showToast('CSV File loaded successfully.');
             };
             reader.readAsText(file);
         }
     });
 
-    // Drag & Drop
-    batchDropzone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        batchDropzone.style.borderColor = 'var(--primary)';
-        batchDropzone.style.background = 'rgba(59, 130, 246, 0.05)';
-    });
+    if (batchDropzone) {
+        batchDropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            batchDropzone.style.borderColor = 'var(--primary)';
+            batchDropzone.style.background = 'rgba(59, 130, 246, 0.05)';
+        });
 
-    batchDropzone.addEventListener('dragleave', () => {
-        batchDropzone.style.borderColor = 'var(--border-color)';
-        batchDropzone.style.background = 'transparent';
-    });
+        batchDropzone.addEventListener('dragleave', () => {
+            batchDropzone.style.borderColor = 'var(--border-color)';
+            batchDropzone.style.background = 'transparent';
+        });
 
-    batchDropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        batchDropzone.style.borderColor = 'var(--border-color)';
-        batchDropzone.style.background = 'transparent';
+        batchDropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            batchDropzone.style.borderColor = 'var(--border-color)';
+            batchDropzone.style.background = 'transparent';
 
-        const file = e.dataTransfer.files[0];
-        if (file && (file.type === "text/csv" || file.type === "text/plain" || file.name.endsWith('.csv') || file.name.endsWith('.txt'))) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                loadedCsvData = event.target.result;
-                batchTextarea.value = `File loaded: ${file.name} (${file.size} bytes)\nClick "Process Batch" to parse.`;
-                showToast('CSV File dropped successfully.');
-            };
-            reader.readAsText(file);
-        } else {
-            showToast('Invalid file format. Please upload CSV or TXT.');
-        }
-    });
+            const file = e.dataTransfer.files[0];
+            if (file && (file.type === "text/csv" || file.type === "text/plain" || file.name.endsWith('.csv') || file.name.endsWith('.txt'))) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    loadedCsvData = event.target.result;
+                    if (batchTextarea) batchTextarea.value = `File loaded: ${file.name} (${file.size} bytes)\nClick "Process Batch" to parse.`;
+                    showToast('CSV File dropped successfully.');
+                };
+                reader.readAsText(file);
+            } else {
+                showToast('Invalid file format. Please upload CSV or TXT.');
+            }
+        });
+    }
 
-    // Process Batch
-    document.getElementById('btn-batch-process').addEventListener('click', () => {
-        const content = loadedCsvData || batchTextarea.value.trim();
+    document.getElementById('btn-batch-process')?.addEventListener('click', () => {
+        const content = loadedCsvData || batchTextarea?.value.trim() || '';
         if (!content) {
             showToast('Please upload a file or paste a list first.');
             return;
         }
 
-        const delimiter = document.getElementById('batch-delimiter').value;
-        const nameCol = document.getElementById('batch-name-col').value;
+        const delimiter = document.getElementById('batch-delimiter')?.value || ',';
+        const nameCol = document.getElementById('batch-name-col')?.value || 'none';
         const lines = content.split('\n').map(line => line.trim()).filter(line => line.length > 0);
 
         batchItems = [];
@@ -751,7 +845,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let qrValue = line;
             let filename = `qr-${idx + 1}`;
 
-            // Parse columns if delimiter is present
             if (line.includes(delimiter)) {
                 const columns = line.split(delimiter).map(col => col.trim().replace(/^["']|["']$/g, ''));
                 if (nameCol !== 'none') {
@@ -774,7 +867,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        loadedCsvData = null; // Reset for next import
+        loadedCsvData = null;
         renderBatchPreview();
         showToast(`Processed ${batchItems.length} items successfully.`);
     });
@@ -783,6 +876,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const previewList = document.getElementById('batch-preview-list');
         const exportSection = document.getElementById('batch-export-section');
         const countBadge = document.getElementById('batch-count');
+
+        if (!previewList || !exportSection || !countBadge) return;
 
         if (batchItems.length === 0) {
             previewList.innerHTML = `<div class="empty-history">Process list to preview generated QR codes.</div>`;
@@ -803,7 +898,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const thumbCanvas = document.createElement('canvas');
                 thumbCanvas.width = 120;
                 thumbCanvas.height = 120;
-                drawSingleQRToCanvas(item.value, thumbCanvas, logoImg);
+                const thumbCtx = thumbCanvas.getContext('2d');
+                drawQRCodeToCanvasContext(item.value, thumbCanvas, thumbCtx, 300, logoImg);
 
                 itemDiv.innerHTML = `
                     <div class="batch-item-thumb">
@@ -820,7 +916,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 previewList.appendChild(itemDiv);
             });
 
-            // Add delete button event listeners
             document.querySelectorAll('.btn-remove-batch').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -832,11 +927,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function drawSingleQRToCanvas(value, targetCanvas, logoImg) {
-        const targetCtx = targetCanvas.getContext('2d');
-        drawQRCodeToCanvasContext(value, targetCanvas, targetCtx, 300, logoImg);
-    }
-
     function escapeHtml(text) {
         return text
             .replace(/&/g, "&amp;")
@@ -846,12 +936,11 @@ document.addEventListener('DOMContentLoaded', () => {
             .replace(/'/g, "&#039;");
     }
 
-    // ZIP Batch Downloader
-    document.getElementById('btn-batch-download-zip').addEventListener('click', async () => {
+    document.getElementById('btn-batch-download-zip')?.addEventListener('click', async () => {
         if (batchItems.length === 0) return;
 
-        const format = document.getElementById('batch-export-format').value;
-        const resolution = parseInt(document.getElementById('batch-export-size').value, 10);
+        const format = document.getElementById('batch-export-format')?.value || 'png';
+        const resolution = parseInt(document.getElementById('batch-export-size')?.value || '1000', 10);
         const zip = new JSZip();
 
         showToast('Compiling ZIP package...');
@@ -866,7 +955,6 @@ document.addEventListener('DOMContentLoaded', () => {
             triggerDownload(content, `QR-Studio-Batch-${Date.now()}.zip`);
             showToast('Vector ZIP downloaded!');
         } else {
-            // PNG Mode
             getActiveLogoImage(async (logoImg) => {
                 const promises = batchItems.map(async (item) => {
                     return new Promise((resolve) => {
@@ -896,25 +984,10 @@ document.addEventListener('DOMContentLoaded', () => {
         link.click();
     }
 
-    // Scanner Tab Toggle
-    document.getElementById('tab-webcam').addEventListener('click', () => {
-        document.getElementById('tab-webcam').classList.add('active');
-        document.getElementById('tab-upload').classList.remove('active');
-        document.getElementById('scan-webcam-content').style.display = 'flex';
-        document.getElementById('scan-upload-content').style.display = 'none';
-    });
-
-    document.getElementById('tab-upload').addEventListener('click', () => {
-        document.getElementById('tab-upload').classList.add('active');
-        document.getElementById('tab-webcam').classList.remove('active');
-        document.getElementById('scan-upload-content').style.display = 'flex';
-        document.getElementById('scan-webcam-content').style.display = 'none';
-        stopWebcam();
-    });
-
-    // --- Toast Notification Helper ---
+    // --- Toast Notifications ---
     function showToast(message) {
         const container = document.getElementById('toast-container');
+        if (!container) return;
         const toast = document.createElement('div');
         toast.className = 'toast';
         toast.innerHTML = `<i class="fa-solid fa-circle-info"></i> <span>${message}</span>`;
@@ -1077,26 +1150,9 @@ document.addEventListener('DOMContentLoaded', () => {
         params.set('ecc', state.ecc);
         params.set('margin', state.margin);
 
-        if (state.contentType === 'url') params.set('val', document.getElementById('input-url').value);
-        else if (state.contentType === 'text') params.set('val', document.getElementById('input-text').value);
-        else if (state.contentType === 'wifi') {
-            params.set('ssid', document.getElementById('wifi-ssid').value);
-            params.set('pass', document.getElementById('wifi-pass').value);
-            params.set('enc', document.getElementById('wifi-enc').value);
-        } else if (state.contentType === 'vcard') {
-            params.set('fn', document.getElementById('vc-fn').value);
-            params.set('ln', document.getElementById('vc-ln').value);
-            params.set('org', document.getElementById('vc-org').value);
-            params.set('title', document.getElementById('vc-title').value);
-            params.set('tel', document.getElementById('vc-tel').value);
-            params.set('email', document.getElementById('vc-email').value);
-        } else if (state.contentType === 'email') {
-            params.set('to', document.getElementById('email-to').value);
-            params.set('sub', document.getElementById('email-subject').value);
-            params.set('body', document.getElementById('email-body').value);
-        } else if (state.contentType === 'phone') {
-            params.set('val', document.getElementById('input-phone').value);
-        }
+        if (state.contentType === 'url') params.set('val', document.getElementById('input-url')?.value || '');
+        else if (state.contentType === 'phone') params.set('val', document.getElementById('input-phone')?.value || '');
+
         return `${window.location.origin}${window.location.pathname}?${params.toString()}`;
     }
 
@@ -1108,18 +1164,19 @@ document.addEventListener('DOMContentLoaded', () => {
             f.classList.toggle('active', f.id === `form-${state.contentType}`);
         });
 
-        colorFg.value = state.colorFg;
-        colorFgHex.value = state.colorFg;
-        colorFg2.value = state.colorFg2;
-        colorFg2Hex.value = state.colorFg2;
-        colorBg.value = state.colorBg;
-        colorBgHex.value = state.colorBg;
-        transparentBg.checked = state.transparentBg;
+        if (colorFg) colorFg.value = state.colorFg;
+        if (colorFgHex) colorFgHex.value = state.colorFg;
+        if (colorFg2) colorFg2.value = state.colorFg2;
+        if (colorFg2Hex) colorFg2Hex.value = state.colorFg2;
+        if (colorBg) colorBg.value = state.colorBg;
+        if (colorBgHex) colorBgHex.value = state.colorBg;
+        if (transparentBg) transparentBg.checked = state.transparentBg;
 
         document.querySelectorAll('#fg-mode-control .segment-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.fgmode === state.fgMode);
         });
-        document.getElementById('group-color-fg2').style.display = state.fgMode === 'solid' ? 'none' : 'flex';
+        const groupFg2 = document.getElementById('group-color-fg2');
+        if (groupFg2) groupFg2.style.display = state.fgMode === 'solid' ? 'none' : 'flex';
 
         document.querySelectorAll('#dot-style-options .grid-opt').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.style === state.dotStyle);
@@ -1133,19 +1190,34 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.toggle('active', btn.dataset.logo === state.logoType);
         });
 
-        // Toggle custom logo upload field visibility
         const uploadWrapper = document.getElementById('logo-upload-wrapper');
         if (uploadWrapper) {
             uploadWrapper.style.display = state.logoType === 'custom' ? 'block' : 'none';
         }
 
-        document.getElementById('logo-size').value = Math.round(state.logoScale * 100);
-        document.getElementById('logo-size-val').textContent = Math.round(state.logoScale * 100);
-        document.getElementById('logo-padding').value = state.logoPadding;
-        document.getElementById('logo-pad-val').textContent = state.logoPadding;
-        document.getElementById('ecc-level').value = state.ecc;
-        document.getElementById('margin-size').value = state.margin;
-        document.getElementById('margin-val').textContent = state.margin;
+        const logoSizeInput = document.getElementById('logo-size');
+        if (logoSizeInput) {
+            logoSizeInput.value = Math.round(state.logoScale * 100);
+            const valElem = document.getElementById('logo-size-val');
+            if (valElem) valElem.textContent = Math.round(state.logoScale * 100);
+        }
+
+        const logoPadInput = document.getElementById('logo-padding');
+        if (logoPadInput) {
+            logoPadInput.value = state.logoPadding;
+            const valElem = document.getElementById('logo-pad-val');
+            if (valElem) valElem.textContent = state.logoPadding;
+        }
+
+        const eccSelect = document.getElementById('ecc-level');
+        if (eccSelect) eccSelect.value = state.ecc;
+
+        const marginInput = document.getElementById('margin-size');
+        if (marginInput) {
+            marginInput.value = state.margin;
+            const valElem = document.getElementById('margin-val');
+            if (valElem) valElem.textContent = state.margin;
+        }
     }
 
     function loadStateFromUrl() {
@@ -1161,35 +1233,23 @@ document.addEventListener('DOMContentLoaded', () => {
             state.eyeFrameStyle = params.get('eye') || state.eyeFrameStyle;
             state.logoType = params.get('logo') || state.logoType;
             state.logoScale = parseFloat(params.get('scale')) || state.logoScale;
-            state.logoPadding = parseInt(params.get('pad')) || state.logoPadding;
+            state.logoPadding = parseInt(params.get('pad'), 10) || state.logoPadding;
             state.ecc = params.get('ecc') || state.ecc;
-            state.margin = parseInt(params.get('margin')) || state.margin;
+            state.margin = parseInt(params.get('margin'), 10) || state.margin;
 
-            if (state.contentType === 'url') document.getElementById('input-url').value = params.get('val') || '';
-            else if (state.contentType === 'text') document.getElementById('input-text').value = params.get('val') || '';
-            else if (state.contentType === 'wifi') {
-                document.getElementById('wifi-ssid').value = params.get('ssid') || '';
-                document.getElementById('wifi-pass').value = params.get('pass') || '';
-                document.getElementById('wifi-enc').value = params.get('enc') || 'WPA';
-            } else if (state.contentType === 'vcard') {
-                document.getElementById('vc-fn').value = params.get('fn') || '';
-                document.getElementById('vc-ln').value = params.get('ln') || '';
-                document.getElementById('vc-org').value = params.get('org') || '';
-                document.getElementById('vc-title').value = params.get('title') || '';
-                document.getElementById('vc-tel').value = params.get('tel') || '';
-                document.getElementById('vc-email').value = params.get('email') || '';
-            } else if (state.contentType === 'email') {
-                document.getElementById('email-to').value = params.get('to') || '';
-                document.getElementById('email-subject').value = params.get('sub') || '';
-                document.getElementById('email-body').value = params.get('body') || '';
+            if (state.contentType === 'url') {
+                const urlInput = document.getElementById('input-url');
+                if (urlInput) urlInput.value = params.get('val') || '';
             } else if (state.contentType === 'phone') {
-                document.getElementById('input-phone').value = params.get('val') || '';
+                const phoneInput = document.getElementById('input-phone');
+                if (phoneInput) phoneInput.value = params.get('val') || '';
             }
         }
 
         updateControlsToMatchState();
     }
-    document.getElementById('btn-share-qr').addEventListener('click', () => {
+
+    document.getElementById('btn-share-qr')?.addEventListener('click', () => {
         const link = getShareableLink();
         navigator.clipboard.writeText(link).then(() => {
             showToast('Shareable preset link copied to clipboard!');
@@ -1198,7 +1258,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initializations
+    // --- Initial Boot ---
     loadStateFromUrl();
     renderHistoryGrid();
     renderQRCode();
